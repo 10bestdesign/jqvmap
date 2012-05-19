@@ -4,6 +4,7 @@
  * http://jqvmap.com
  *
  * Copyright 2012, Peter Schmalfeldt <manifestinteractive@gmail.com>
+ * Copyright 2011-2012, Kirill Lebedev
  * Licensed under the MIT license.
  *
  * Fork Me @ https://github.com/manifestinteractive/jqvmap
