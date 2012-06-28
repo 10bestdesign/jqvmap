@@ -464,7 +464,7 @@
         jQuery(path).addClass('jvectormap-region');
       }
 
-	  jQuery(this.rootGroup).append(path);
+      jQuery(this.rootGroup).append(path);
 
       if(params.selectedRegion !== null)
       {
