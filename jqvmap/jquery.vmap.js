@@ -456,7 +456,8 @@
       path.id = 'jqvmap' + map.index + '_' + key;
       map.countries[key] = path;
 
-      if (this.canvas.mode == 'svg') {
+      if (this.canvas.mode == 'svg')
+      {
         path.setAttribute('class', 'jvectormap-region');
       }
       else
