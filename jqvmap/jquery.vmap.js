@@ -456,9 +456,15 @@
       path.id = 'jqvmap' + map.index + '_' + key;
       map.countries[key] = path;
 	  
-      jQuery(this.rootGroup).append(path);
+      if (this.canvas.mode == 'svg') {
+        path.setAttribute('class', 'jvectormap-region');
+      } 
+	  else 
+	  {
+        jQuery(path).addClass('jvectormap-region');
+      }
 
-      path.setAttribute('class', 'jqvmap-region');
+	  jQuery(this.rootGroup).append(path);
 
       if(params.selectedRegion !== null)
       {
