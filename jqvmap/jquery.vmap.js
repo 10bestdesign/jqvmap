@@ -22,7 +22,8 @@
     borderColor: 1,
     borderWidth: 1,
     borderOpacity: 1,
-    selectedRegion: 1
+    selectedRegions: 1,
+	multiSelectRegion: 1
   };
 
   var apiEvents = {
@@ -47,7 +48,8 @@
       borderColor: '#818181',
       borderWidth: 1,
       borderOpacity: 0.25,
-      selectedRegion: null
+      selectedRegions: null,
+	  multiSelectRegion: false
     }, map;
 
     if (options === 'addMap')
@@ -404,6 +406,8 @@
     params = params || {};
 	var map = this;
     var mapData = WorldMap.maps[params.map];
+	
+	selectedRegions = [];
 
     this.container = params.container;
 
@@ -467,12 +471,25 @@
 
       jQuery(this.rootGroup).append(path);
 
-      if(params.selectedRegion !== null)
+      if(params.selectedRegions !== null)
       {
-        if(key.toLowerCase() == params.selectedRegion.toLowerCase())
-        {
-          path.setFill(params.selectedColor);
-        }
+		if(params.selectedRegions instanceof Array){
+		  for(var k in params.selectedRegions){
+		    var code = params.selectedRegions[k].toLowerCase();
+		    if(key.toLowerCase() == code)
+		    {
+			  path.setFill(params.selectedColor);
+			  selectedRegions.push(code);
+			}
+		  }
+		}else{
+		  var code = params.selectedRegions.toLowerCase();
+		  if(key.toLowerCase() == code)
+		  {
+		    path.setFill(params.selectedColor);
+		    selectedRegions.push(code);
+		  }
+		}
       }
     }
 
@@ -524,20 +541,40 @@
     });
 
     jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (e){
-
-	  for (var key in mapData.pathes)
-      {
-		map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
-        map.countries[key].setFill(map.countries[key].getOriginalFill());
-      }
-
-      var path = e.target;
+      if(!params.multiSelectRegion){
+		for (var key in mapData.pathes)
+        {
+          map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
+          map.countries[key].setFill(map.countries[key].getOriginalFill());
+        }
+	  }
+	  
+	  var path = e.target;
       var code = e.target.id.split('_').pop();
+	  
+	  jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
-      jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
+	  if(params.multiSelectRegion){
+		if(selectedRegions.indexOf(code) !== -1){
+		  selectedRegions.splice(selectedRegions.indexOf(code), 1);
 
-	  path.currentFillColor = params.selectedColor;
-      path.setFill(params.selectedColor);
+		  path.currentFillColor = params.color;
+		  path.setFill(params.color);
+		}else{
+		  selectedRegions.push(code);
+			
+		  path.currentFillColor = params.selectedColor;
+		  path.setFill(params.selectedColor);
+		}
+	  }else{
+		selectedRegions = new Array;
+		selectedRegions.push(code);
+	  
+		path.currentFillColor = params.selectedColor;
+		path.setFill(params.selectedColor);
+	  }
+	  
+	  //console.log(selectedRegions);
 
     });
 
