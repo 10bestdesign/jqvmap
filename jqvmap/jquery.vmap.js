@@ -836,38 +836,38 @@
     {
       var map = this;
       var sliderDelta = (jQuery('#zoom').innerHeight() - 6 * 2 - 15 * 2 - 3 * 2 - 7 - 6) / (this.zoomMaxStep - this.zoomCurStep);
-
-      this.container.find('.jqvmap-zoomin').click(function ()
-      {
-        if (map.zoomCurStep < map.zoomMaxStep)
+      
+      function _zoom(inDirection) {
+        var newScale = map.zoomCurStep + inDirection;
+        
+        if (newScale > 0 && newScale <= map.zoomMaxStep)
         {
           var curTransX = map.transX;
           var curTransY = map.transY;
           var curScale = map.scale;
+          
+          if (inDirection > 0) { //zoom in
+              map.transX -= (map.width / map.scale - map.width / (map.scale * map.zoomStep)) / 2;
+              map.transY -= (map.height / map.scale - map.height / (map.scale * map.zoomStep)) / 2;
+              map.setScale(map.scale * map.zoomStep);
+          } else { //zoom out
+              map.transX += (map.width / (map.scale / map.zoomStep) - map.width / map.scale) / 2;
+              map.transY += (map.height / (map.scale / map.zoomStep) - map.height / map.scale) / 2;
+              map.setScale(map.scale / map.zoomStep);
+          }
+          
+          map.zoomCurStep += inDirection;
 
-          map.transX -= (map.width / map.scale - map.width / (map.scale * map.zoomStep)) / 2;
-          map.transY -= (map.height / map.scale - map.height / (map.scale * map.zoomStep)) / 2;
-          map.setScale(map.scale * map.zoomStep);
-          map.zoomCurStep++;
-
-          jQuery('#zoomSlider').css('top', parseInt(jQuery('#zoomSlider').css('top'), 10) - sliderDelta);
+          jQuery('#zoomSlider').css('top', parseInt(jQuery('#zoomSlider').css('top'), 10) - (inDirection * sliderDelta));
         }
+      }
+
+      this.container.find('.jqvmap-zoomin').click(function () {
+        _zoom(+1);
       });
 
-      this.container.find('.jqvmap-zoomout').click(function ()
-      {
-        if (map.zoomCurStep > 1) {
-          var curTransX = map.transX;
-          var curTransY = map.transY;
-          var curScale = map.scale;
-
-          map.transX += (map.width / (map.scale / map.zoomStep) - map.width / map.scale) / 2;
-          map.transY += (map.height / (map.scale / map.zoomStep) - map.height / map.scale) / 2;
-          map.setScale(map.scale / map.zoomStep);
-          map.zoomCurStep--;
-
-          jQuery('#zoomSlider').css('top', parseInt(jQuery('#zoomSlider').css('top'), 10) + sliderDelta);
-        }
+      this.container.find('.jqvmap-zoomout').click(function () {
+        _zoom(-1);
       });
     },
 
