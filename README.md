@@ -97,6 +97,10 @@ Colors of individual map regions. Keys of the colors objects are country codes a
 
 Whether to Enable Map Zoom ( true or false, defaults to true)
 
+**zoomMaxStep** *4*
+
+The number of zoom levels ( defaults to 4 ).
+
 **hoverColor** *'#c9dfaf'*
 
 Color of the region when mouse pointer is over it.

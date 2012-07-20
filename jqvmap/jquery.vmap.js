@@ -18,6 +18,7 @@
     scaleColors: 1,
     normalizeFunction: 1,
     enableZoom: 1,
+    zoomMaxStep: 1,
     showTooltip: 1,
     borderColor: 1,
     borderWidth: 1,
@@ -44,6 +45,7 @@
       scaleColors: ['#b6d6ff', '#005ace'],
       normalizeFunction: 'linear',
       enableZoom: true,
+      zoomMaxStep: 4,
       showTooltip: true,
       borderColor: '#818181',
       borderWidth: 1,
@@ -420,6 +422,8 @@
 
     this.width = params.container.width();
     this.height = params.container.height();
+    
+    this.zoomMaxStep = params.zoomMaxStep;
 
     this.resize();
 
