@@ -837,37 +837,31 @@
       var map = this;
       var sliderDelta = (jQuery('#zoom').innerHeight() - 6 * 2 - 15 * 2 - 3 * 2 - 7 - 6) / (this.zoomMaxStep - this.zoomCurStep);
       
-      function _zoom(inDirection) {
-        var newScale = map.zoomCurStep + inDirection;
-        
-        if (newScale > 0 && newScale <= map.zoomMaxStep)
+      function _zoomToStep(newZoomStep) {
+        if (newZoomStep > 0 && newZoomStep <= map.zoomMaxStep)
         {
           var curTransX = map.transX;
           var curTransY = map.transY;
           var curScale = map.scale;
+          var oldStep = map.zoomCurStep;
+          var newScale = map.baseScale * Math.pow(map.zoomStep, newZoomStep - 1);
           
-          if (inDirection > 0) { //zoom in
-              map.transX -= (map.width / map.scale - map.width / (map.scale * map.zoomStep)) / 2;
-              map.transY -= (map.height / map.scale - map.height / (map.scale * map.zoomStep)) / 2;
-              map.setScale(map.scale * map.zoomStep);
-          } else { //zoom out
-              map.transX += (map.width / (map.scale / map.zoomStep) - map.width / map.scale) / 2;
-              map.transY += (map.height / (map.scale / map.zoomStep) - map.height / map.scale) / 2;
-              map.setScale(map.scale / map.zoomStep);
-          }
+          map.transX += (map.width / newScale - map.width / curScale) / 2;
+          map.transY += (map.height / newScale - map.height / curScale) / 2;
+          map.setScale(newScale);
           
-          map.zoomCurStep += inDirection;
+          map.zoomCurStep = newZoomStep;
 
-          jQuery('#zoomSlider').css('top', parseInt(jQuery('#zoomSlider').css('top'), 10) - (inDirection * sliderDelta));
+          jQuery('#zoomSlider').css('top', parseInt(jQuery('#zoomSlider').css('top'), 10) - ((newZoomStep - oldStep) * sliderDelta));
         }
       }
 
       this.container.find('.jqvmap-zoomin').click(function () {
-        _zoom(+1);
+        _zoomToStep(map.zoomCurStep + 1);
       });
 
       this.container.find('.jqvmap-zoomout').click(function () {
-        _zoom(-1);
+        _zoomToStep(map.zoomCurStep - 1);
       });
     },
 
