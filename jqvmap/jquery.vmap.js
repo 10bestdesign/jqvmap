@@ -835,7 +835,6 @@
     bindZoomButtons: function ()
     {
       var map = this;
-      var sliderDelta = (jQuery('#zoom').innerHeight() - 6 * 2 - 15 * 2 - 3 * 2 - 7 - 6) / (this.zoomMaxStep - this.zoomCurStep);
       
       function _zoomToStep(newZoomStep) {
         if (newZoomStep > 0 && newZoomStep <= map.zoomMaxStep)
@@ -850,7 +849,6 @@
           
           map.zoomCurStep = newZoomStep;
 
-          jQuery('#zoomSlider').css('top', parseInt(jQuery('#zoomSlider').css('top'), 10) - ((newZoomStep - oldStep) * sliderDelta));
         }
       }
 
