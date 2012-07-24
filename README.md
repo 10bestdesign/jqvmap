@@ -101,7 +101,7 @@ Whether to Enable Map Zoom ( true or false, defaults to true)
 
 The number of zoom levels ( defaults to 4 ).
 
-** zoomStep** *1*
+**zoomStep** *1*
 
 The zoom level ( defaults to 1 )
 
