@@ -467,6 +467,10 @@ Callback function which will be called when the mouse cursor leaves the region p
 
 Callback function which will be called when the user clicks the region path. Country code will be passed to the callback as argument.
 
+**onZoomChange** *function(event, oldZoomStep, newZoomStep)*
+
+Callback function which will be called when the zoom level is changed. The old and new zoom levels are passed to the callback as arguments.
+
 Dynamic Updating
 ======
 
@@ -494,7 +498,11 @@ You can define callback function when you initialize JQVMap:
 	    onRegionClick: function(event, code, region)
 	    {
      
-	    }
+	    },
+	    onZoomChange: function(event, oldZoomStep, newZoomStep)
+	    {
+	    
+	    },
 	});
 
 Or later using standard jQuery mechanism:
@@ -519,6 +527,12 @@ Or later using standard jQuery mechanism:
 	);
 	jQuery('#vmap').bind('regionClick.jqvmap',
 	    function(event, code, region)
+	    {
+     
+	    }
+	);
+	jQuery('#vmap').bind('zoomChange.jqvmap',
+	    function(event, oldZoomStep, newZoomStep)
 	    {
      
 	    }

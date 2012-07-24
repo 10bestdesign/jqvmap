@@ -32,7 +32,8 @@
     onLabelShow: 'labelShow',
     onRegionOver: 'regionMouseOver',
     onRegionOut: 'regionMouseOut',
-    onRegionClick: 'regionClick'
+    onRegionClick: 'regionClick',
+    onZoomChange: 'zoomChange'
   };
 
   $.fn.vectorMap = function (options){
@@ -69,10 +70,6 @@
       defaultParams.container = this;
       this.css({ position: 'relative', overflow: 'hidden' });
 	  
-      map = new WorldMap(defaultParams);
-
-      this.data('mapObject', map);
-
       for (var e in apiEvents)
       {
         if (defaultParams[e])
@@ -80,6 +77,10 @@
           this.bind(apiEvents[e] + '.jqvmap', defaultParams[e]);
         }
       }
+      
+      map = new WorldMap(defaultParams);
+
+      this.data('mapObject', map);
     }
   };
 
@@ -612,6 +613,7 @@
 
     this.bindZoomButtons();
     
+    this.zoomChangeEvent = $.Event('zoomChange.jqvmap');
     this.setZoomStep(params.zoomStep || this.zoomStep);
 
     WorldMap.mapIndex++;
@@ -840,13 +842,17 @@
         {
             var oldScale = this.scale;
             var oldStep = this.zoomStep;
-            var newScale = this.baseScale * Math.pow(this.zoomScaleFactor, newZoomStep - 1);
             
-            this.transX += (this.width / newScale - this.width / oldScale) / 2;
-            this.transY += (this.height / newScale - this.height / oldScale) / 2;
-            this.setScale(newScale);
-            
-            this.zoomStep = newZoomStep;
+            jQuery(this.container).trigger(this.zoomChangeEvent, [oldStep, newZoomStep]);
+            if(!this.zoomChangeEvent.isDefaultPrevented()) {
+                var newScale = this.baseScale * Math.pow(this.zoomScaleFactor, newZoomStep - 1);
+                
+                this.transX += (this.width / newScale - this.width / oldScale) / 2;
+                this.transY += (this.height / newScale - this.height / oldScale) / 2;
+                this.setScale(newScale);
+                
+                this.zoomStep = newZoomStep;
+            }
         }
     },
 
