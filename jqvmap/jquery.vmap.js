@@ -840,14 +840,12 @@
       function _zoomToStep(newZoomStep) {
         if (newZoomStep > 0 && newZoomStep <= map.zoomMaxStep)
         {
-          var curTransX = map.transX;
-          var curTransY = map.transY;
-          var curScale = map.scale;
+          var oldScale = map.scale;
           var oldStep = map.zoomCurStep;
           var newScale = map.baseScale * Math.pow(map.zoomStep, newZoomStep - 1);
           
-          map.transX += (map.width / newScale - map.width / curScale) / 2;
-          map.transY += (map.height / newScale - map.height / curScale) / 2;
+          map.transX += (map.width / newScale - map.width / oldScale) / 2;
+          map.transY += (map.height / newScale - map.height / oldScale) / 2;
           map.setScale(newScale);
           
           map.zoomCurStep = newZoomStep;
