@@ -105,6 +105,10 @@ The number of zoom levels ( defaults to 4 ).
 
 The zoom level ( defaults to 1 )
 
+**translation** *[transX, transY]*
+
+The x-y translation of the map ( defaults to null ).
+
 **hoverColor** *'#c9dfaf'*
 
 Color of the region when mouse pointer is over it.

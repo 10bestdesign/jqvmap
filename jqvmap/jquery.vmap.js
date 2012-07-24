@@ -20,6 +20,7 @@
     enableZoom: 1,
     zoomMaxStep: 1,
     zoomStep: 1,
+    translation: 1,
     showTooltip: 1,
     borderColor: 1,
     borderWidth: 1,
@@ -48,6 +49,7 @@
       normalizeFunction: 'linear',
       enableZoom: true,
       zoomMaxStep: 4,
+      zoomScale: 1,
       showTooltip: true,
       borderColor: '#818181',
       borderWidth: 1,
@@ -615,6 +617,8 @@
     
     this.zoomChangeEvent = $.Event('zoomChange.jqvmap');
     this.setZoomStep(params.zoomStep || this.zoomStep);
+    if(params.translation)
+        this.setTranslation(params.translation);
 
     WorldMap.mapIndex++;
   };
@@ -835,6 +839,12 @@
         return false;
 
       });
+    },
+    
+    setTranslation: function(newTrans) {
+      this.transX = newTrans[0];
+      this.transY = newTrans[1];
+      this.applyTransform();
     },
     
     setZoomStep: function(newZoomStep) {
