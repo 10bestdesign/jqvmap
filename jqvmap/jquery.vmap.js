@@ -560,30 +560,30 @@
 	  var path = e.target;
       var code = e.target.id.split('_').pop();
 	  
-	  jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
-
-	  if(params.multiSelectRegion){
-		if(selectedRegions.indexOf(code) !== -1){
-		  selectedRegions.splice(selectedRegions.indexOf(code), 1);
-
-		  path.currentFillColor = params.color;
-		  path.setFill(params.color);
-		}else{
-		  selectedRegions.push(code);
-			
-		  path.currentFillColor = params.selectedColor;
-		  path.setFill(params.selectedColor);
-		}
-	  }else{
-		selectedRegions = new Array;
-		selectedRegions.push(code);
+	  var rcEvent = $.Event('regionClick.jqvmap');
+	  jQuery(params.container).trigger(rcEvent, [code, mapData.pathes[code].name]);
 	  
-		path.currentFillColor = params.selectedColor;
-		path.setFill(params.selectedColor);
+	  if(!rcEvent.isDefaultPrevented()) {
+              if(params.multiSelectRegion){
+                if(selectedRegions.indexOf(code) !== -1){
+                  selectedRegions.splice(selectedRegions.indexOf(code), 1);
+        
+                  path.currentFillColor = params.color;
+                  path.setFill(params.color);
+                }else{
+                  selectedRegions.push(code);
+                    
+                  path.currentFillColor = params.selectedColor;
+                  path.setFill(params.selectedColor);
+                }
+              }else{
+                selectedRegions = new Array;
+                selectedRegions.push(code);
+              
+                path.currentFillColor = params.selectedColor;
+                path.setFill(params.selectedColor);
+              }
 	  }
-	  
-	  //console.log(selectedRegions);
-
     });
 
     if(params.showTooltip)
