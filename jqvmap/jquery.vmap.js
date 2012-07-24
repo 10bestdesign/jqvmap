@@ -626,7 +626,7 @@
     countries: {},
     countriesColors: {},
     countriesData: {},
-    zoomStep: 1.4,
+    zoomScaleFactor: 1.4,
     zoomMaxStep: 4,
     zoomCurStep: 1,
 
@@ -837,7 +837,7 @@
         {
             var oldScale = this.scale;
             var oldStep = this.zoomCurStep;
-            var newScale = this.baseScale * Math.pow(this.zoomStep, newZoomStep - 1);
+            var newScale = this.baseScale * Math.pow(this.zoomScaleFactor, newZoomStep - 1);
             
             this.transX += (this.width / newScale - this.width / oldScale) / 2;
             this.transY += (this.height / newScale - this.height / oldScale) / 2;
