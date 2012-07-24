@@ -506,7 +506,7 @@ You can define callback function when you initialize JQVMap:
 	    onZoomChange: function(event, oldZoomStep, newZoomStep)
 	    {
 	    
-	    },
+	    }
 	});
 
 Or later using standard jQuery mechanism:
