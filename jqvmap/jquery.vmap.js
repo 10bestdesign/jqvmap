@@ -628,7 +628,7 @@
     countriesData: {},
     zoomScaleFactor: 1.4,
     zoomMaxStep: 4,
-    zoomCurStep: 1,
+    zoomStep: 1,
 
     setColors: function (key, color)
     {
@@ -836,14 +836,14 @@
         if (newZoomStep > 0 && newZoomStep <= this.zoomMaxStep)
         {
             var oldScale = this.scale;
-            var oldStep = this.zoomCurStep;
+            var oldStep = this.zoomStep;
             var newScale = this.baseScale * Math.pow(this.zoomScaleFactor, newZoomStep - 1);
             
             this.transX += (this.width / newScale - this.width / oldScale) / 2;
             this.transY += (this.height / newScale - this.height / oldScale) / 2;
             this.setScale(newScale);
             
-            this.zoomCurStep = newZoomStep;
+            this.zoomStep = newZoomStep;
         }
     },
 
@@ -852,11 +852,11 @@
       var map = this;
       
       this.container.find('.jqvmap-zoomin').click(function () {
-        map.setZoomStep(map.zoomCurStep + 1);
+        map.setZoomStep(map.zoomStep + 1);
       });
 
       this.container.find('.jqvmap-zoomout').click(function () {
-        map.setZoomStep(map.zoomCurStep - 1);
+        map.setZoomStep(map.zoomStep - 1);
       });
     },
 
