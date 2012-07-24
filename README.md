@@ -101,6 +101,10 @@ Whether to Enable Map Zoom ( true or false, defaults to true)
 
 The number of zoom levels ( defaults to 4 ).
 
+** zoomStep** *1*
+
+The zoom level ( defaults to 1 )
+
 **hoverColor** *'#c9dfaf'*
 
 Color of the region when mouse pointer is over it.

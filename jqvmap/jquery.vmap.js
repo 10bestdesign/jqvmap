@@ -19,6 +19,7 @@
     normalizeFunction: 1,
     enableZoom: 1,
     zoomMaxStep: 1,
+    zoomStep: 1,
     showTooltip: 1,
     borderColor: 1,
     borderWidth: 1,
@@ -610,6 +611,8 @@
     }
 
     this.bindZoomButtons();
+    
+    this.setZoomStep(params.zoomStep || this.zoomStep);
 
     WorldMap.mapIndex++;
   };
