@@ -793,6 +793,9 @@
       var mouseDown = false;
       var oldPageX, oldPageY;
       var self = this;
+      
+      self.isMoving = false;
+      self.isMovingTimeout = false;
 
       this.container.mousemove(function (e){
 
@@ -808,6 +811,11 @@
 
           oldPageX = e.pageX;
           oldPageY = e.pageY;
+          
+          self.isMoving = true;
+          if (self.isMovingTimeout) {
+            clearTimeout(self.isMovingTimeout);
+          }
         }
 
         return false;
@@ -823,6 +831,11 @@
       }).mouseup(function (){
 
         mouseDown = false;
+        
+        self.isMovingTimeout = setTimeout(function() {
+            self.isMoving = false;
+        }, 100);
+        
         return false;
 
       });

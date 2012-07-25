@@ -443,21 +443,21 @@ This is the Region that you are looking to have preselected (two letter ISO code
 
 Whether to show Tooltips on Mouseover ( true or false, defaults to true)
 
-**onLabelShow** *function(element, label, code)*
+**onLabelShow** *function(event, label, code)*
 
 Callback function which will be called before label is shown. Label DOM object and country code will be passed to the callback as arguments.
 
-**onRegionOver** *function(element, code, region)*
+**onRegionOver** *function(event, code, region)*
 
 Callback function which will be called when the mouse cursor enters the region path. Country code will be passed to the callback as argument.
 
-**onRegionOut** *function(element, code, region)*
+**onRegionOut** *function(event, code, region)*
 
 Callback function which will be called when the mouse cursor leaves the region path. Country code will be passed to the callback as argument.
 
-**onRegionClick** *function(element, code, region)*
+**onRegionClick** *function(event, code, region)*
 
-Callback function which will be called when the user clicks the region path. Country code will be passed to the callback as argument.
+Callback function which will be called when the user clicks the region path. Country code will be passed to the callback as argument. This callback may be called while the user is moving the map. If you need to distinguish between a "real" click and a click resulting from moving the map, you can inspect **$(event.currentTarget).data('mapObject').isMoving**.
 
 Dynamic Updating
 ======
