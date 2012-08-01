@@ -237,13 +237,20 @@
         node.setFill = function (color)
         {
           this.getElementsByTagName('fill')[0].color = color;
+          if(this.getAttribute("original") === null)
+          {
+            this.setAttribute("original", color);
+          }
         };
 
         node.getFill = function (color)
         {
           return this.getElementsByTagName('fill')[0].color;
         };
-
+        node.getOriginalFill = function ()
+        {
+          return this.getAttribute("original");
+        };
         node.setOpacity = function (opacity)
         {
           this.getElementsByTagName('fill')[0].opacity = parseInt(opacity * 100, 10) + '%';
