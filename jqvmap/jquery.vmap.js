@@ -563,15 +563,19 @@
 		}else{
 		  selectedRegions.push(code);
 			
-		  path.currentFillColor = params.selectedColor;
-		  path.setFill(params.selectedColor);
+		  if (params.selectedColor !== null) {
+		    path.currentFillColor = params.selectedColor;
+		    path.setFill(params.selectedColor);
+		  }
 		}
 	  }else{
 		selectedRegions = new Array;
 		selectedRegions.push(code);
 	  
-		path.currentFillColor = params.selectedColor;
-		path.setFill(params.selectedColor);
+		if (params.selectedColor !== null) {
+		  path.currentFillColor = params.selectedColor;
+		  path.setFill(params.selectedColor);
+		}
 	  }
 	  
 	  //console.log(selectedRegions);
