@@ -50,12 +50,15 @@
       borderOpacity: 0.25,
       selectedRegions: null,
       multiSelectRegion: false
-    }, map;
+    }, map = this.data('mapObject');
 
     if (options === 'addMap') {
       WorldMap.maps[arguments[1]] = arguments[2];
     } else if (options === 'set' && apiParams[arguments[1]]) {
-      this.data('mapObject')['set' + arguments[1].charAt(0).toUpperCase() + arguments[1].substr(1)].apply(this.data('mapObject'), Array.prototype.slice.call(arguments, 2));
+      map['set' + arguments[1].charAt(0).toUpperCase() + arguments[1].substr(1)].apply(map, Array.prototype.slice.call(arguments, 2));
+    } else if (typeof options === 'string' &&
+               typeof map[options] === 'function') {
+      map[options].apply(map, Array.prototype.slice.call(arguments, 1));
     } else {
       $.extend(defaultParams, options);
       defaultParams.container = this;
@@ -356,7 +359,8 @@
     var map = this;
     var mapData = WorldMap.maps[params.map];
 
-    selectedRegions = [];
+    this.selectedRegions = [];
+    this.multiSelectRegion = params.multiSelectRegion;
 
     this.container = params.container;
 
@@ -364,7 +368,9 @@
     this.defaultHeight = mapData.height;
 
     this.color = params.color;
+    this.selectedColor = params.selectedColor;
     this.hoverColor = params.hoverColor;
+    this.hoverOpacity = params.hoverOpacity;
     this.setBackgroundColor(params.backgroundColor);
 
     this.width = params.container.width();
@@ -403,7 +409,7 @@
       });
 
       path.setFill(this.color);
-      path.id = 'jqvmap' + map.index + '_' + key;
+      path.id = map.getCountryId(key);
       map.countries[key] = path;
 
       if (this.canvas.mode == 'svg') {
@@ -419,15 +425,13 @@
           for(var k in params.selectedRegions) {
             var code = params.selectedRegions[k].toLowerCase();
             if (key.toLowerCase() == code) {
-              path.setFill(params.selectedColor);
-              selectedRegions.push(code);
+              this.select(code, path);
             }
           }
         } else {
           var code = params.selectedRegions.toLowerCase();
           if (key.toLowerCase() == code) {
-            path.setFill(params.selectedColor);
-            selectedRegions.push(code);
+            this.select(code, path);
           }
         }
       }
@@ -442,13 +446,7 @@
       if (e.type == 'mouseover') {
         jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.pathes[code].name]);
         if (!regionMouseOverEvent.isDefaultPrevented()) {
-          if (params.hoverOpacity) {
-            path.setOpacity(params.hoverOpacity);
-          }
-          else if (params.hoverColor) {
-            path.currentFillColor = path.getFill() + '';
-            path.setFill(params.hoverColor);
-          }
+          map.highlight(code, path);
         }
         if (params.showTooltip) {
           map.label.text(mapData.pathes[code].name);
@@ -461,10 +459,7 @@
           }
         }
       } else {
-        path.setOpacity(1);
-        if (path.currentFillColor) {
-          path.setFill(path.currentFillColor);
-        }
+        map.unhighlight(code, path);
 
         map.label.hide();
         jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.pathes[code].name]);
@@ -484,28 +479,10 @@
 
       jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
-      if (params.multiSelectRegion) {
-        if (selectedRegions.indexOf(code) !== -1) {
-          selectedRegions.splice(selectedRegions.indexOf(code), 1);
-
-          path.currentFillColor = params.color;
-          path.setFill(params.color);
-        } else {
-          selectedRegions.push(code);
-
-          if (params.selectedColor !== null) {
-            path.currentFillColor = params.selectedColor;
-            path.setFill(params.selectedColor);
-          }
-        }
+      if (this.selectedRegions.indexOf(code) !== -1) {
+        this.deselect(code, path);
       } else {
-        selectedRegions = new Array;
-        selectedRegions.push(code);
-
-        if (params.selectedColor !== null) {
-          path.currentFillColor = params.selectedColor;
-          path.setFill(params.selectedColor);
-        }
+        this.select(code, path);
       }
 
       //console.log(selectedRegions);
@@ -622,6 +599,44 @@
       if (this.values) {
         this.setValues(this.values);
       }
+    },
+
+    highlight: function (cc, path) {
+      path = path || $('#' + this.getCountryId(cc))[0];
+      if (this.hoverOpacity) {
+        path.setOpacity(this.hoverOpacity);
+      } else if (this.hoverColor) {
+        path.currentFillColor = path.getFill() + '';
+        path.setFill(this.hoverColor);
+      }
+    },
+
+    unhighlight: function (cc, path) {
+      path = path || $('#' + this.getCountryId(cc))[0];
+      path.setOpacity(1);
+      if (path.currentFillColor) {
+        path.setFill(path.currentFillColor);
+      }
+    },
+
+    select: function (cc, path) {
+      path = path || $('#' + this.getCountryId(cc))[0];
+      if (this.multiSelectRegion && this.selectedRegions.indexOf(cc) < 0) {
+        this.selectedRegions.push(cc);
+      } else {
+        this.selectedRegions = [cc];
+      }
+      if (this.selectedColor) {
+        path.currentFillColor = this.selectedColor;
+        path.setFill(this.selectedColor);
+      }
+    },
+
+    deselect: function (cc, path) {
+      path = path || $('#' + this.getCountryId(cc))[0];
+      this.selectedRegions.splice(this.selectedRegions.indexOf(cc), 1);
+      path.currentFillColor = this.color;
+      path.setFill(this.color);
     },
 
     resize: function () {
@@ -774,8 +789,8 @@
       this.applyTransform();
     },
 
-    getCountryPath: function (cc) {
-      return jQuery('#' + cc)[0];
+    getCountryId: function (cc) {
+      return 'jqvmap' + this.index + '_' + cc;
     }
   };
 
