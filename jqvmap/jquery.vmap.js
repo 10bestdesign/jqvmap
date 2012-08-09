@@ -30,7 +30,9 @@
     onLabelShow: 'labelShow',
     onRegionOver: 'regionMouseOver',
     onRegionOut: 'regionMouseOut',
-    onRegionClick: 'regionClick'
+    onRegionClick: 'regionClick',
+    onRegionSelect: 'regionSelect',
+    onRegionDeselect: 'regionDeselect'
   };
 
   $.fn.vectorMap = function (options) {
@@ -615,22 +617,32 @@
 
     select: function (cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
-      if (this.multiSelectRegion && this.selectedRegions.indexOf(cc) < 0) {
-        this.selectedRegions.push(cc);
-      } else {
-        this.selectedRegions = [cc];
-      }
-      if (this.selectedColor) {
-        path.currentFillColor = this.selectedColor;
-        path.setFill(this.selectedColor);
+      if(this.selectedRegions.indexOf(cc) < 0) {
+        if (this.multiSelectRegion) {
+          this.selectedRegions.push(cc);
+        } else {
+          this.selectedRegions = [cc];
+        }
+        // MUST BE after the change of selectedRegions
+        // Otherwise, we might loop
+        $(this.container).trigger('regionSelect.jqvmap', [cc]);
+        if (this.selectedColor) {
+          path.currentFillColor = this.selectedColor;
+          path.setFill(this.selectedColor);
+        }
       }
     },
 
     deselect: function (cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
-      this.selectedRegions.splice(this.selectedRegions.indexOf(cc), 1);
-      path.currentFillColor = path.getOriginalFill();
-      path.setFill(path.getOriginalFill());
+      if(this.selectedRegions.indexOf(cc) >= 0) {
+        this.selectedRegions.splice(this.selectedRegions.indexOf(cc), 1);
+        // MUST BE after the change of selectedRegions
+        // Otherwise, we might loop
+        $(this.container).trigger('regionDeselect.jqvmap', [cc]);
+        path.currentFillColor = path.getOriginalFill();
+        path.setFill(path.getOriginalFill());
+      }
     },
 
     isSelected: function(cc) {
