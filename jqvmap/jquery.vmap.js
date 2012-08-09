@@ -419,22 +419,6 @@
       }
 
       jQuery(this.rootGroup).append(path);
-
-      if (params.selectedRegions !== null) {
-        if (params.selectedRegions instanceof Array) {
-          for(var k in params.selectedRegions) {
-            var code = params.selectedRegions[k].toLowerCase();
-            if (key.toLowerCase() == code) {
-              this.select(code, path);
-            }
-          }
-        } else {
-          var code = params.selectedRegions.toLowerCase();
-          if (key.toLowerCase() == code) {
-            this.select(code, path);
-          }
-        }
-      }
     }
 
     jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'mouseover mouseout', function (e) {
@@ -511,6 +495,16 @@
     if (params.values) {
       this.values = params.values;
       this.setValues(params.values);
+    }
+
+    if (params.selectedRegions) {
+      if (params.selectedRegions instanceof Array) {
+        for(var k in params.selectedRegions) {
+          this.select(params.selectedRegions[k].toLowerCase());
+        }
+      } else {
+        this.select(params.selectedRegions.toLowerCase());
+      }
     }
 
     this.bindZoomButtons();
