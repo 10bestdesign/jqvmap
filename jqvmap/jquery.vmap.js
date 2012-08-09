@@ -635,8 +635,8 @@
     deselect: function (cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
       this.selectedRegions.splice(this.selectedRegions.indexOf(cc), 1);
-      path.currentFillColor = this.color;
-      path.setFill(this.color);
+      path.currentFillColor = path.getOriginalFill();
+      path.setFill(path.getOriginalFill());
     },
 
     resize: function () {
