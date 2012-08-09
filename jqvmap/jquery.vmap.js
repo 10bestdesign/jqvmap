@@ -479,10 +479,10 @@
 
       jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
-      if (this.selectedRegions.indexOf(code) !== -1) {
-        this.deselect(code, path);
+      if (map.selectedRegions.indexOf(code) !== -1) {
+        map.deselect(code, path);
       } else {
-        this.select(code, path);
+        map.select(code, path);
       }
 
       //console.log(selectedRegions);
