@@ -58,7 +58,7 @@
       map['set' + arguments[1].charAt(0).toUpperCase() + arguments[1].substr(1)].apply(map, Array.prototype.slice.call(arguments, 2));
     } else if (typeof options === 'string' &&
                typeof map[options] === 'function') {
-      map[options].apply(map, Array.prototype.slice.call(arguments, 1));
+      return map[options].apply(map, Array.prototype.slice.call(arguments, 1));
     } else {
       $.extend(defaultParams, options);
       defaultParams.container = this;
@@ -631,6 +631,10 @@
       this.selectedRegions.splice(this.selectedRegions.indexOf(cc), 1);
       path.currentFillColor = path.getOriginalFill();
       path.setFill(path.getOriginalFill());
+    },
+
+    isSelected: function(cc) {
+      return this.selectedRegions.indexOf(cc) >= 0;
     },
 
     resize: function () {
