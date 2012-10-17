@@ -479,23 +479,23 @@
 
       if(params.selectedRegions !== null)
       {
-		if(params.selectedRegions instanceof Array){
-		  for(var k in params.selectedRegions){
-		    var code = params.selectedRegions[k].toLowerCase();
-		    if(key.toLowerCase() == code)
-		    {
-			  path.setFill(params.selectedColor);
-			  selectedRegions.push(code);
-			}
-		  }
-		}else{
-		  var code = params.selectedRegions.toLowerCase();
-		  if(key.toLowerCase() == code)
-		  {
-		    path.setFill(params.selectedColor);
-		    selectedRegions.push(code);
-		  }
-		}
+        if(params.selectedRegions instanceof Array){
+          for(var k in params.selectedRegions){
+            var code = params.selectedRegions[k].toLowerCase();
+            if(key.toLowerCase() == code)
+            {
+              path.setFill(params.selectedColor);
+              selectedRegions.push(code);
+            }
+          }
+        }else{
+          var code = params.selectedRegions.toLowerCase();
+          if(key.toLowerCase() == code)
+          {
+            path.setFill(params.selectedColor);
+            selectedRegions.push(code);
+          }
+        }
       }
     }
 
@@ -559,32 +559,28 @@
 
     jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
-	  if(params.multiSelectRegion){
-		if(selectedRegions.indexOf(code) !== -1){
-		  selectedRegions.splice(selectedRegions.indexOf(code), 1);
+    if(params.multiSelectRegion){
+      if(selectedRegions.indexOf(code) !== -1){
+        selectedRegions.splice(selectedRegions.indexOf(code), 1);
 
-		  path.currentFillColor = params.color;
-		  path.setFill(params.color);
-		}else{
-		  selectedRegions.push(code);
-			
-		  if (params.selectedColor !== null) {
-		    path.currentFillColor = params.selectedColor;
-		    path.setFill(params.selectedColor);
-		  }
-		}
-	  }else{
-		selectedRegions = new Array;
-		selectedRegions.push(code);
-	  
-		if (params.selectedColor !== null) {
-		  path.currentFillColor = params.selectedColor;
-		  path.setFill(params.selectedColor);
-		}
-	  }
-	  
-	  //console.log(selectedRegions);
-
+        path.currentFillColor = params.color;
+        path.setFill(params.color);
+      }else{
+        selectedRegions.push(code);
+        if (params.selectedColor !== null) {
+          path.currentFillColor = params.selectedColor;
+          path.setFill(params.selectedColor);
+        }
+      }
+      }else{
+        selectedRegions = new Array;
+        selectedRegions.push(code);
+          if (params.selectedColor !== null) {
+            path.currentFillColor = params.selectedColor;
+            path.setFill(params.selectedColor);
+          }
+      }
+  //console.log(selectedRegions);
     });
 
     if(params.showTooltip)
