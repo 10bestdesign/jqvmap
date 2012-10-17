@@ -397,9 +397,9 @@
           return 'c' + coords.join(',');
           break;
 
-		default:
-		  return false;
-		  break;
+    default:
+      return false;
+      break;
       }
 
       return '';
@@ -411,7 +411,7 @@
   {
     params = params || {};
     var map = this;
-      var mapData = WorldMap.maps[params.map];
+    var mapData = WorldMap.maps[params.map];
 
     selectedRegions = [];
 
@@ -557,7 +557,6 @@
     var path = e.target;
     var code = e.target.id.split('_').pop();
 
-    jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
     if(params.multiSelectRegion){
       if(selectedRegions.indexOf(code) !== -1){
@@ -582,6 +581,8 @@
       }
   //console.log(selectedRegions);
     });
+
+    jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
     if(params.showTooltip)
     {
