@@ -113,7 +113,7 @@
           }
           catch (e)
           {
-            console.log("Rescued for createElement")
+            //Monkey patch for Zombie.JS <= v1.4
             var element = document.createElement(tagName);
             element.className = "rvml"
             return element
@@ -124,7 +124,7 @@
       try {
         document.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
       } catch (e) {
-        console.log("Rescued for undefined method createStyleSheet")
+        //Monkey patch for Zombie.JS <= v1.4
       }
     }
 
@@ -492,7 +492,7 @@
 
       if(params.selectedRegions !== null)
       {
-        //if(params.selectedRegions instanceof Array){
+        //Monkey patch for Zombie.JS <= v1.4
         if(params.selectedRegions.constructor.name == "Array"){
           for(var k in params.selectedRegions){
             var code = params.selectedRegions[k].toLowerCase();
