@@ -108,11 +108,24 @@
       {
         this.createVmlNode = function (tagName)
         {
-          return document.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+         try {
+            return document.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+          }
+          catch (e)
+          {
+            console.log("Rescued for createElement")
+            var element = document.createElement(tagName);
+            element.className = "rvml"
+            return element
+          }
         };
       }
 
-      document.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
+      try {
+        document.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
+      } catch (e) {
+        console.log("Rescued for undefined method createStyleSheet")
+      }
     }
 
     if (this.mode == 'svg')
@@ -479,7 +492,8 @@
 
       if(params.selectedRegions !== null)
       {
-        if(params.selectedRegions instanceof Array){
+        //if(params.selectedRegions instanceof Array){
+        if(params.selectedRegions.constructor.name == "Array"){
           for(var k in params.selectedRegions){
             var code = params.selectedRegions[k].toLowerCase();
             if(key.toLowerCase() == code)
@@ -554,23 +568,23 @@
             map.countries[key].setFill(map.countries[key].getOriginalFill());
           }
       }
-    var path = e.target;
-    var code = e.target.id.split('_').pop();
+      var path = e.target;
+      var code = e.target.id.split('_').pop();
 
 
-    if(params.multiSelectRegion){
-      if(selectedRegions.indexOf(code) !== -1){
-        selectedRegions.splice(selectedRegions.indexOf(code), 1);
+      if(params.multiSelectRegion){
+        if(selectedRegions.indexOf(code) !== -1){
+          selectedRegions.splice(selectedRegions.indexOf(code), 1);
 
-        path.currentFillColor = params.color;
-        path.setFill(params.color);
-      }else{
-        selectedRegions.push(code);
-        if (params.selectedColor !== null) {
-          path.currentFillColor = params.selectedColor;
-          path.setFill(params.selectedColor);
+          path.currentFillColor = params.color;
+          path.setFill(params.color);
+        }else{
+          selectedRegions.push(code);
+          if (params.selectedColor !== null) {
+            path.currentFillColor = params.selectedColor;
+            path.setFill(params.selectedColor);
+          }
         }
-      }
       }else{
         selectedRegions = new Array;
         selectedRegions.push(code);
@@ -579,10 +593,10 @@
             path.setFill(params.selectedColor);
           }
       }
-  //console.log(selectedRegions);
+      //console.log(selectedRegions);
+      jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
     });
 
-    jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
     if(params.showTooltip)
     {
