@@ -1,5 +1,5 @@
 /*!
- * jQVMap Version 1.0 
+ * jQVMap Version 1.0
  *
  * http://jqvmap.com
  *
@@ -23,7 +23,7 @@
     borderWidth: 1,
     borderOpacity: 1,
     selectedRegions: 1,
-	multiSelectRegion: 1
+    multiSelectRegion: 1
   };
 
   var apiEvents = {
@@ -40,7 +40,7 @@
       backgroundColor: '#a5bfdd',
       color: '#f4f3f0',
       hoverColor: '#c9dfaf',
-	  selectedColor: '#c9dfaf',
+      selectedColor: '#c9dfaf',
       scaleColors: ['#b6d6ff', '#005ace'],
       normalizeFunction: 'linear',
       enableZoom: true,
@@ -49,7 +49,7 @@
       borderWidth: 1,
       borderOpacity: 0.25,
       selectedRegions: null,
-	  multiSelectRegion: false
+      multiSelectRegion: false
     }, map;
 
     if (options === 'addMap')
@@ -65,7 +65,7 @@
       $.extend(defaultParams, options);
       defaultParams.container = this;
       this.css({ position: 'relative', overflow: 'hidden' });
-	  
+
       map = new WorldMap(defaultParams);
 
       this.data('mapObject', map);
@@ -83,7 +83,7 @@
   var VectorCanvas = function (width, height, params)
   {
     this.mode = window.SVGAngle ? 'svg' : 'vml';
-	this.params = params;
+    this.params = params;
 
     if (this.mode == 'svg')
     {
@@ -108,11 +108,24 @@
       {
         this.createVmlNode = function (tagName)
         {
-          return document.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+         try {
+            return document.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+          }
+          catch (e)
+          {
+            //Monkey patch for Zombie.JS <= v1.4
+            var element = document.createElement(tagName);
+            element.className = "rvml"
+            return element
+          }
         };
       }
 
-      document.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
+      try {
+        document.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
+      } catch (e) {
+        //Monkey patch for Zombie.JS <= v1.4
+      }
     }
 
     if (this.mode == 'svg')
@@ -192,10 +205,10 @@
         node.setFill = function (color)
         {
           this.setAttribute("fill", color);
-		  if(this.getAttribute("original") === null)
-		  {
-		  	this.setAttribute("original", color);
-		  }
+          if(this.getAttribute("original") === null)
+            {
+              this.setAttribute("original", color);
+            }
         };
 
         node.getFill = function (color)
@@ -205,9 +218,8 @@
 
         node.getOriginalFill = function ()
         {
-		  return this.getAttribute("original");
+          return this.getAttribute("original");
         };
-		
         node.setOpacity = function (opacity)
         {
           this.setAttribute('fill-opacity', opacity);
@@ -397,10 +409,10 @@
           cy = coords[coords.length - 1];
           return 'c' + coords.join(',');
           break;
-		  
-		default:
-		  return false;
-		  break;
+
+    default:
+      return false;
+      break;
       }
 
       return '';
@@ -411,10 +423,10 @@
   var WorldMap = function (params)
   {
     params = params || {};
-	var map = this;
+    var map = this;
     var mapData = WorldMap.maps[params.map];
-	
-	selectedRegions = [];
+
+    selectedRegions = [];
 
     this.container = params.container;
 
@@ -454,15 +466,15 @@
       jQuery('<div/>').addClass('jqvmap-zoomin').text('+').appendTo(params.container);
       jQuery('<div/>').addClass('jqvmap-zoomout').html('&#x2212;').appendTo(params.container);
     }
-	
-	map.countries = [];
-	
+
+    map.countries = [];
+
     for (var key in mapData.pathes)
     {
       var path = this.canvas.createPath({
         path: mapData.pathes[key].path
       });
-	  
+
       path.setFill(this.color);
       path.id = 'jqvmap' + map.index + '_' + key;
       map.countries[key] = path;
@@ -480,23 +492,24 @@
 
       if(params.selectedRegions !== null)
       {
-		if(params.selectedRegions instanceof Array){
-		  for(var k in params.selectedRegions){
-		    var code = params.selectedRegions[k].toLowerCase();
-		    if(key.toLowerCase() == code)
-		    {
-			  path.setFill(params.selectedColor);
-			  selectedRegions.push(code);
-			}
-		  }
-		}else{
-		  var code = params.selectedRegions.toLowerCase();
-		  if(key.toLowerCase() == code)
-		  {
-		    path.setFill(params.selectedColor);
-		    selectedRegions.push(code);
-		  }
-		}
+        //Monkey patch for Zombie.JS <= v1.4
+        if(params.selectedRegions.constructor.name == "Array"){
+          for(var k in params.selectedRegions){
+            var code = params.selectedRegions[k].toLowerCase();
+            if(key.toLowerCase() == code)
+            {
+              path.setFill(params.selectedColor);
+              selectedRegions.push(code);
+            }
+          }
+        }else{
+          var code = params.selectedRegions.toLowerCase();
+          if(key.toLowerCase() == code)
+          {
+            path.setFill(params.selectedColor);
+            selectedRegions.push(code);
+          }
+        }
       }
     }
 
@@ -549,45 +562,41 @@
 
     jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (e){
       if(!params.multiSelectRegion){
-		for (var key in mapData.pathes)
-        {
-          map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
-          map.countries[key].setFill(map.countries[key].getOriginalFill());
-        }
-	  }
-	  
-	  var path = e.target;
+        for (var key in mapData.pathes)
+          {
+            map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
+            map.countries[key].setFill(map.countries[key].getOriginalFill());
+          }
+      }
+      var path = e.target;
       var code = e.target.id.split('_').pop();
-	  
-	  jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
 
-	  if(params.multiSelectRegion){
-		if(selectedRegions.indexOf(code) !== -1){
-		  selectedRegions.splice(selectedRegions.indexOf(code), 1);
 
-		  path.currentFillColor = params.color;
-		  path.setFill(params.color);
-		}else{
-		  selectedRegions.push(code);
-			
-		  if (params.selectedColor !== null) {
-		    path.currentFillColor = params.selectedColor;
-		    path.setFill(params.selectedColor);
-		  }
-		}
-	  }else{
-		selectedRegions = new Array;
-		selectedRegions.push(code);
-	  
-		if (params.selectedColor !== null) {
-		  path.currentFillColor = params.selectedColor;
-		  path.setFill(params.selectedColor);
-		}
-	  }
-	  
-	  //console.log(selectedRegions);
+      if(params.multiSelectRegion){
+        if(selectedRegions.indexOf(code) !== -1){
+          selectedRegions.splice(selectedRegions.indexOf(code), 1);
 
+          path.currentFillColor = params.color;
+          path.setFill(params.color);
+        }else{
+          selectedRegions.push(code);
+          if (params.selectedColor !== null) {
+            path.currentFillColor = params.selectedColor;
+            path.setFill(params.selectedColor);
+          }
+        }
+      }else{
+        selectedRegions = new Array;
+        selectedRegions.push(code);
+          if (params.selectedColor !== null) {
+            path.currentFillColor = params.selectedColor;
+            path.setFill(params.selectedColor);
+          }
+      }
+      //console.log(selectedRegions);
+      jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
     });
+
 
     if(params.showTooltip)
     {
@@ -642,7 +651,7 @@
       if (typeof key == 'string')
       {
         this.countries[key].setFill(color);
-  	  	this.countries[key].setAttribute("original", color);
+        this.countries[key].setAttribute("original", color);
       }
       else
       {
@@ -653,7 +662,7 @@
           if (this.countries[code])
           {
             this.countries[code].setFill(colors[code]);
-			this.countries[code].setAttribute("original", colors[code]);
+            this.countries[code].setAttribute("original", colors[code]);
           }
         }
       }
@@ -804,7 +813,7 @@
       var mouseDown = false;
       var oldPageX, oldPageY;
       var self = this;
-      
+
       self.isMoving = false;
       self.isMovingTimeout = false;
 
@@ -822,7 +831,7 @@
 
           oldPageX = e.pageX;
           oldPageY = e.pageY;
-          
+
           self.isMoving = true;
           if (self.isMovingTimeout) {
             clearTimeout(self.isMovingTimeout);
@@ -842,11 +851,11 @@
       }).mouseup(function (){
 
         mouseDown = false;
-        
+
         self.isMovingTimeout = setTimeout(function() {
             self.isMoving = false;
         }, 100);
-        
+
         return false;
 
       });
