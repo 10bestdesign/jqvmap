@@ -396,7 +396,7 @@
     this.rootGroup = this.canvas.createGroup(true);
 
     this.index = WorldMap.mapIndex;
-    this.label = jQuery('<div/>').addClass('jqvmap-label').appendTo(jQuery('body'));
+    this.label = jQuery('<div/>').addClass('jqvmap-label').appendTo(jQuery('body')).hide();
 
     if (params.enableZoom) {
       jQuery('<div/>').addClass('jqvmap-zoomin').text('+').appendTo(params.container);
