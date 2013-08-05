@@ -663,6 +663,10 @@
         $(this.container).trigger('regionDeselect.jqvmap', [cc]);
         path.currentFillColor = path.getOriginalFill();
         path.setFill(path.getOriginalFill());
+      } else {
+        for (var key in this.countries) {
+          this.countries[key].currentFillColor = this.color;
+          this.countries[key].setFill(this.color);
       }
     },
 
