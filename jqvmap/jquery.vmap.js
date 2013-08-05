@@ -396,7 +396,7 @@
     this.rootGroup = this.canvas.createGroup(true);
 
     this.index = WorldMap.mapIndex;
-    this.label = jQuery('<div/>').addClass('jqvmap-label').appendTo(jQuery('body'));
+    this.label = jQuery('<div/>').addClass('jqvmap-label').appendTo(jQuery('body')).hide();
 
     if (params.enableZoom) {
       jQuery('<div/>').addClass('jqvmap-zoomin').text('+').appendTo(params.container);
@@ -464,11 +464,12 @@
       var code = e.target.id.split('_').pop();
 
       jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
-
-      if (map.selectedRegions.indexOf(code) !== -1) {
-        map.deselect(code, path);
-      } else {
-        map.select(code, path);
+      if (!regionClickEvent.isDefaultPrevented()) {
+        if (map.selectedRegions.indexOf(code) !== -1) {
+          map.deselect(code, path);
+        } else {
+          map.select(code, path);
+        }
       }
 
       //console.log(selectedRegions);
@@ -478,9 +479,17 @@
     if (params.showTooltip) {
       params.container.mousemove(function (e) {
         if (map.label.is(':visible')) {
-          map.label.css({
-            left: e.pageX - 15 - map.labelWidth,
-            top: e.pageY - 15 - map.labelHeight
+            var left = e.pageX - 15 - map.labelWidth;
+            var top = e.pageY - 15 - map.labelHeight;
+            
+            if(left < 0)
+               left = e.pageX + 15;
+            if(top < 0)
+                top = e.pageY + 15;
+            
+            map.label.css({
+                left: left,
+                top: top
           });
         }
       });
