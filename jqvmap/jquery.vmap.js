@@ -585,6 +585,10 @@
         }
       }
 
+      if (min == max) {
+        max++; // don't let min == max
+      }
+
       this.colorScale.setMin(min);
       this.colorScale.setMax(max);
 
