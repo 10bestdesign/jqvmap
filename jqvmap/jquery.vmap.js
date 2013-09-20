@@ -574,10 +574,13 @@
 
       for (var cc in values) {
         val = parseFloat(values[cc]);
+        if ( val == NaN ) {
+          continue;
+        }
         if (val > max) {
           max = values[cc];
         }
-        if (val && val < min) {
+        if (val < min) {
           min = val;
         }
       }
