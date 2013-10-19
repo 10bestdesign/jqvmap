@@ -464,7 +464,7 @@
       var code = e.target.id.split('_').pop();
 
       jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
-      if (!regionClickEvent.isDefaultPrevented()) {
+      if (!e.isDefaultPrevented()) {
         if (map.selectedRegions.indexOf(code) !== -1) {
           map.deselect(code, path);
         } else {
