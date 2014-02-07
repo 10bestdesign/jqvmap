@@ -1,0 +1,29 @@
+{
+  "name": "jqvmap",
+  "version": "1.0.0",
+  "homepage": "http://jqvmap.com/",
+  "authors": [
+    "Manifest Interactive <info@manifestinteractive.com>"
+  ],
+  "dependencies": {
+    "jquery": "~1.10.2"
+  },
+  "description": "jQuery Vector Map Library",
+  "main": "jqvmap/jquery.vmap.packed.js",
+  "keywords": [
+    "jquery",
+    "map",
+    "svg",
+    "vml",
+    "vector"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/components",
+    "test",
+    "tests"
+  ]
+}
