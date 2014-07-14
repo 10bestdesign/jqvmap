@@ -460,8 +460,8 @@
         }
       }
 
-      var path = e.target;
-      var code = e.target.id.split('_').pop();
+      var path = regionClickEvent.target;
+      var code = regionClickEvent.target.id.split('_').pop();
 
       jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
       if (!regionClickEvent.isDefaultPrevented()) {
