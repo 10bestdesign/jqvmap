@@ -452,7 +452,7 @@
       }
     });
 
-    jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (e) {
+    jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (regionClickEvent) {
       if (!params.multiSelectRegion) {
         for (var key in mapData.pathes) {
           map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
