@@ -488,7 +488,7 @@
             if(top < 0)
                 top = e.pageY + 15;
                 
-            if(params.container.offset().left + map.labelWidth + 15) > e.pageX)
+            if((params.container.offset().left + map.labelWidth + 15) > e.pageX){
                 left = e.pageX + 10;
             
             map.label.css({
