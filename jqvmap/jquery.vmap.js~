@@ -495,6 +495,8 @@
       });
     }
 
+    this.setColors(params.colors);
+
     this.canvas.canvas.appendChild(this.rootGroup);
 
     this.applyTransform();
@@ -505,7 +507,6 @@
       this.values = params.values;
       this.setValues(params.values);
     }
-    this.setColors(params.colors);
 
     if (params.selectedRegions) {
       if (params.selectedRegions instanceof Array) {
