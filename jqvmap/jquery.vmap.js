@@ -453,18 +453,20 @@
     });
 
     jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (e) {
-      if (!params.multiSelectRegion) {
-        for (var key in mapData.pathes) {
-          map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
-          map.countries[key].setFill(map.countries[key].getOriginalFill());
-        }
-      }
-
       var path = e.target;
       var code = e.target.id.split('_').pop();
 
-      jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
+      regionClickEvent = $.Event('regionClick.jqvmap');
+      jQuery(params.container).trigger(regionClickEvent, [code, mapData.pathes[code].name]);
       if (!regionClickEvent.isDefaultPrevented()) {
+
+	if (!params.multiSelectRegion) {
+          for (var key in mapData.pathes) {
+            map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
+            map.countries[key].setFill(map.countries[key].getOriginalFill());
+          }
+        }
+
         if (map.selectedRegions.indexOf(code) !== -1) {
           map.deselect(code, path);
         } else {
@@ -495,8 +497,6 @@
       });
     }
 
-    this.setColors(params.colors);
-
     this.canvas.canvas.appendChild(this.rootGroup);
 
     this.applyTransform();
@@ -507,6 +507,7 @@
       this.values = params.values;
       this.setValues(params.values);
     }
+    this.setColors(params.colors);
 
     if (params.selectedRegions) {
       if (params.selectedRegions instanceof Array) {
