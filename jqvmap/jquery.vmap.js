@@ -453,18 +453,18 @@
     });
 
     jQuery(params.container).delegate(this.canvas.mode == 'svg' ? 'path' : 'shape', 'click', function (e) {
-      if (!params.multiSelectRegion) {
-        for (var key in mapData.pathes) {
-          map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
-          map.countries[key].setFill(map.countries[key].getOriginalFill());
-        }
-      }
-
       var path = e.target;
       var code = e.target.id.split('_').pop();
+      var regionClickEvent = $.Event('regionClick.jqvmap');
 
-      jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
+      jQuery(params.container).trigger(regionClickEvent, [code, mapData.pathes[code].name]);
       if (!regionClickEvent.isDefaultPrevented()) {
+        if (!params.multiSelectRegion) {
+          for (var key in mapData.pathes) {
+            map.countries[key].currentFillColor = map.countries[key].getOriginalFill();
+            map.countries[key].setFill(map.countries[key].getOriginalFill());
+          }
+        }
         if (map.selectedRegions.indexOf(code) !== -1) {
           map.deselect(code, path);
         } else {
