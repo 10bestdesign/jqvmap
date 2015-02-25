@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>JQVMap - Europe Map</title>
+
+    <link href="../jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="../jqvmap/jquery.vmap.js" type="text/javascript"></script>
+    <script src="../jqvmap/touch_detect.js" type="text/javascript"></script>
+    <script src="../jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery('#vmap').vectorMap({
+            map: 'europe_en',
+            enableZoom: false,
+            showTooltip: false,
+            onRegionClick: function(element, code, region)
+            {
+                if ( !touch_detect() )
+                { 
+                    // we're not on a mobile device, handle the click
+                    var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
+                    alert(message);
+                }
+            },
+            onRegionOver: function(element, code, region)
+            {
+                if ( touch_detect() )
+                { 
+                    /// we're not on a mobile device, handle the click
+                    var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
+                    alert(message);
+                }
+            }
+        });
+    });
+    </script>
+</head>
+
+<body>
+
+    <div id="vmap" style="width: 680px; height: 520px;"></div>
+
+</body>
+</html>
