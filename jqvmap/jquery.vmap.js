@@ -685,9 +685,8 @@
     },
 
     reset: function () {
-      this.countryTitle.reset();
       for (var key in this.countries) {
-        this.countries[key].setFill(WorldMap.defaultColor);
+        this.countries[key].setFill(this.color);
       }
       this.scale = this.baseScale;
       this.transX = this.baseTransX;
