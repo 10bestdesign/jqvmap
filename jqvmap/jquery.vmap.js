@@ -54,7 +54,11 @@
       multiSelectRegion: false
     }, map = this.data('mapObject');
 
-    if (options === 'addMap') {
+    if (options === 'destroy') {
+    	if (map)
+    		map.dispose();
+    }
+    else if (options === 'addMap') {
       WorldMap.maps[arguments[1]] = arguments[2];
     } else if (options === 'set' && apiParams[arguments[1]]) {
       map['set' + arguments[1].charAt(0).toUpperCase() + arguments[1].substr(1)].apply(map, Array.prototype.slice.call(arguments, 2));
@@ -65,6 +69,9 @@
       $.extend(defaultParams, options);
       defaultParams.container = this;
       this.css({ position: 'relative', overflow: 'hidden' });
+
+      if (map)
+      	map.dispose();
 
       map = new WorldMap(defaultParams);
 
@@ -379,14 +386,19 @@
     this.height = params.container.height();
 
     this.resize();
+	var _resizeDelegate = function () {
+		map.width = params.container.width();
+		map.height = params.container.height();
+		map.resize();
+		map.canvas.setSize(map.width, map.height);
+		map.applyTransform();
+	};
+	jQuery(window).resize(_resizeDelegate);
 
-    jQuery(window).resize(function () {
-      map.width = params.container.width();
-      map.height = params.container.height();
-      map.resize();
-      map.canvas.setSize(map.width, map.height);
-      map.applyTransform();
-    });
+	this.dispose = function ()
+	{
+		jQuery(window).off("resize", _resizeDelegate);
+	}
 
     this.canvas = new VectorCanvas(this.width, this.height, params);
     params.container.append(this.canvas.canvas);
