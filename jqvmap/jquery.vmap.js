@@ -415,9 +415,9 @@
       map.countries[key] = path;
 
       if (this.canvas.mode == 'svg') {
-        path.setAttribute('class', 'jvectormap-region');
+        path.setAttribute('class', 'jqvmap-region');
       } else {
-        jQuery(path).addClass('jvectormap-region');
+        jQuery(path).addClass('jqvmap-region');
       }
 
       jQuery(this.rootGroup).append(path);
