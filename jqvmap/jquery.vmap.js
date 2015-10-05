@@ -647,7 +647,7 @@
         // MUST BE after the change of selectedRegions
         // Otherwise, we might loop
         $(this.container).trigger('regionSelect.jqvmap', [cc]);
-        if (this.selectedColor) {
+        if (this.selectedColor && path) {
           path.currentFillColor = this.selectedColor;
           path.setFill(this.selectedColor);
         }
