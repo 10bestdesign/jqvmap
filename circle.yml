@@ -1,3 +1,0 @@
-deployment:
-  production:
-    branch: stable
