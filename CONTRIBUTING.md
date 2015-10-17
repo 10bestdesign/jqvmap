@@ -1,9 +1,7 @@
 Contributing to JQVMap
 ===
 
-Our [Coding Culture](https://github.com/manifestinteractive/culture) documentation is a set of guidelines for contributing to development.
-
-These are just guidelines, not rules, use your best judgment and feel free to propose changes to this document in a pull request.
+Please review the following if you intend to submit an issue or pull request.  Not following the guidelines below most likely means your submission will be rejected.
 
 Submitting a Pull Request
 ---
@@ -46,7 +44,7 @@ Reporting an Issue
 
 **ATTENTION:** While creating tickets is the only way to assign a task to be completed, it is equally important to not flood the development team with tickets that are not actually necessary ( might be a duplicate, already being worked on, not actually an issue, etc ).  So before you create a ticket, please check that your issue has not already been reported.
 
-## Creating a New Item
+#### Creating a New Item
 
 To submit a ticket, visit the project's repo on [Github](https://github.com/manifestinteractive/jqvmap), select the **Issues** tab in the right column,  and click the green **New issue** button.
 
