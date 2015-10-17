@@ -1,3 +1,5 @@
+![JQVMap](http://jqvmap.com/img/logo.png "JQVMap")
+
 Contributing to JQVMap
 ===
 
