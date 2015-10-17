@@ -688,7 +688,7 @@ Then connect it to the page and add some code to make visualization:
 Custom Maps
 ======
 
-The following is the converter instructions directly from [jVectorMap](https://github.com/bjornd/jvectormap) that could be used to create your own maps for JQVMap from the data in various GIS formats like Shapefile. The following command could be used to convert USA map from the data available at [www.naturalearthdata.com](www.naturalearthdata.com):
+The following is the converter instructions directly from [jVectorMap](https://github.com/bjornd/jvectormap) that could be used to create your own maps for JQVMap from the data in various GIS formats like Shapefile. The following command could be used to convert USA map from the data available at [www.naturalearthdata.com](http://www.naturalearthdata.com):
 
 	python \
 	  path/to/converter.py \
