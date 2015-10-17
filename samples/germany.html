@@ -4,29 +4,28 @@
   <head>
     <title>JQVMap - Germany Map</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    
-    <link href="../jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
-    
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-    <script src="../jqvmap/jquery.vmap.js" type="text/javascript"></script>
-    <script src="../jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-    
-	<script type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery('#vmap').vectorMap({
-		    map: 'germany_en',
-		    onRegionClick: function(element, code, region)
-		    {
-		        var message = 'You clicked "'
-		            + region 
-		            + '" which has the code: '
-		            + code.toUpperCase();
-             
-		        alert(message);
-		    }
-		});
-	});
-	</script>
+
+    <link href="../jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../jqvmap/jquery.vmap.js"></script>
+    <script type="text/javascript" src="../jqvmap/maps/jquery.vmap.germany.js" charset="utf-8"></script>
+
+    <script>
+      jQuery(document).ready(function () {
+        jQuery('#vmap').vectorMap({
+          map: 'germany_en',
+          onRegionClick: function (element, code, region) {
+            var message = 'You clicked "'
+              + region
+              + '" which has the code: '
+              + code.toUpperCase();
+
+            alert(message);
+          }
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="vmap" style="width: 400px; height: 400px;"></div>

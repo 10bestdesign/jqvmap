@@ -1,0 +1,29 @@
+{
+  "name": "JQVMap",
+  "version": "0.3.5",
+  "private": true,
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "test": "./node_modules/eslint/bin/eslint.js ."
+  },
+  "keywords": [
+    "jquery",
+    "vector",
+    "map"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manifestinteractive/jqvmap.git#stable"
+  },
+  "author": {
+    "name": "Peter Schmalfeldlt",
+    "email": "me@peterschmalfeldt.com",
+    "url": "http://peterschmalfeldt.com"
+  },
+  "devDependencies": {
+    "eslint": "^0.21.0",
+    "eslint-plugin-angular": "^0.3.1",
+    "eslint-plugin-react": "^2.6.0"
+  }
+}

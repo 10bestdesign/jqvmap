@@ -1,0 +1,18 @@
+{
+  "globals": {
+    "jquery": true
+  },
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "quotes": [2, "single"],
+    "strict": [2, "never"],
+    "brace-style": [2, "1tbs"],
+    "indent": [2, 2],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "angular/ng_di": 0,
+    "angular/ng_on_watch": 0
+  }
+}
