@@ -1,3 +1,4 @@
 node_modules/**
 jqvmap/data/**
 jqvmap/maps/**
+jqvmap/jquery.vmap.min.js
