@@ -462,10 +462,11 @@
 
       var path = e.target;
       var code = e.target.id.split('_').pop();
-
+      var regionClickEvent = jQuery.Event('regionClick.jqvmap');
+      
       jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
       if (!regionClickEvent.isDefaultPrevented()) {
-        if (map.selectedRegions.indexOf(code) !== -1) {
+        if ($.inArray(code, map.selectedRegions) !== -1) {
           map.deselect(code, path);
         } else {
           map.select(code, path);
@@ -638,7 +639,7 @@
 
     select: function (cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
-      if(this.selectedRegions.indexOf(cc) < 0) {
+      if($.inArray(cc, this.selectedRegions) < 0) {
         if (this.multiSelectRegion) {
           this.selectedRegions.push(cc);
         } else {
@@ -656,8 +657,8 @@
 
     deselect: function (cc, path) {
       path = path || $('#' + this.getCountryId(cc))[0];
-      if(this.selectedRegions.indexOf(cc) >= 0) {
-        this.selectedRegions.splice(this.selectedRegions.indexOf(cc), 1);
+      if($.inArray(cc, this.selectedRegions) >= 0) {
+        this.selectedRegions.splice($.inArray(cc, this.selectedRegions), 1);
         // MUST BE after the change of selectedRegions
         // Otherwise, we might loop
         $(this.container).trigger('regionDeselect.jqvmap', [cc]);
@@ -667,7 +668,7 @@
     },
 
     isSelected: function(cc) {
-      return this.selectedRegions.indexOf(cc) >= 0;
+      return $.inArray(cc, this.selectedRegions) >= 0;
     },
 
     resize: function () {
