@@ -121,6 +121,10 @@ This option defines colors, with which regions will be painted when you set opti
 
 This is the Region that you are looking to have preselected (two letter ISO code, defaults to null ). See [REGIONS.md](REGIONS.md)
 
+**multiSelectRegion** *boolean*
+
+Whether to enable more than one region to be selected at a time.
+
 **showTooltip** *boolean*
 
 Whether to show Tooltips on Mouseover ( true or false, defaults to true)
