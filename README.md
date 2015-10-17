@@ -2,7 +2,7 @@
 
 This project is a heavily modified version of [jVectorMap](https://github.com/bjornd/jvectormap).  I chose to start fresh rather than fork their project as my intentions were to take it in such a different direction that it would become incompatibale with the original source, rendering it near impossible to merge our projects together without extreme complications.
 
-**Tests:** [![Circle CI](https://circleci.com/gh/manifestinteractive/jqvmap/tree/stable.svg?style=svg&circle-token=7bce3b80868ea5ca32009a195c4436db91e5ea67)](https://circleci.com/gh/manifestinteractive/jqvmap/tree/stable)
+**Tests:** [![Circle CI](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master.svg?style=svg&circle-token=7bce3b80868ea5ca32009a195c4436db91e5ea67)](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master)
 
 
 jQuery Vector Map
