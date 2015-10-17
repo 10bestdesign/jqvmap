@@ -33,7 +33,7 @@ var JQVMap = {
 			selectedColor: '#666666',
 			enableZoom: true,
 			showTooltip: true,
-			selectedRegion: 'MO'
+			selectedRegions: ['MO', 'FL', 'OR']
 		});
 
         jQuery('#europe_map').vectorMap({
@@ -50,10 +50,10 @@ var JQVMap = {
 			onRegionClick: function(element, code, region)
 			{
 				var message = 'You clicked "'
-					+ region 
-					+ '" which has the code: ' 
+					+ region
+					+ '" which has the code: '
 					+ code.toUpperCase();
-			
+
 				alert(message);
 			}
 		});
@@ -69,7 +69,7 @@ var JQVMap = {
 
 		SyntaxHighlighter.defaults['gutter'] = false;
 		SyntaxHighlighter.all();
-		
+
 		setTimeout(function(){ jQuery('.toolbar').hide(); }, 500 );
 	},
 	goTo: function(page) {

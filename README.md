@@ -52,7 +52,7 @@ jQuery('#vmap').vectorMap(
     normalizeFunction: 'linear',
     scaleColors: ['#b6d6ff', '#005ace'],
     selectedColor: '#c9dfaf',
-    selectedRegion: null,
+    selectedRegions: [],
     showTooltip: true,
     onRegionClick: function(element, code, region)
     {
@@ -117,7 +117,7 @@ This function can be used to improve results of visualizations for data with non
 
 This option defines colors, with which regions will be painted when you set option values. Array scaleColors can have more then two elements. Elements should be strings representing colors in RGB hex format.
 
-**selectedRegion** *'mo'*
+**selectedRegions** *['MO', 'FL', 'OR']*
 
 This is the Region that you are looking to have preselected (two letter ISO code, defaults to null ). See [REGIONS.md](REGIONS.md)
 
