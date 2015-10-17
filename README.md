@@ -2,6 +2,9 @@
 
 This project is a heavily modified version of [jVectorMap](https://github.com/bjornd/jvectormap).  I chose to start fresh rather than fork their project as my intentions were to take it in such a different direction that it would become incompatibale with the original source, rendering it near impossible to merge our projects together without extreme complications.
 
+Tests: [![Circle CI](https://circleci.com/gh/manifestinteractive/jqvmap/tree/stable.svg?style=svg&circle-token=7bce3b80868ea5ca32009a195c4436db91e5ea67)](https://circleci.com/gh/manifestinteractive/jqvmap/tree/stable)
+
+
 jQuery Vector Map
 ======
 
@@ -12,13 +15,14 @@ To get started, all you need to do is include the JavaScript and CSS files for t
 	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	  <head>
 	    <title>JQVMap - World Map</title>
-    
+	    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
 	    <link href="../jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
-    
-	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-	    <script src="../jqvmap/jquery.vmap.js" type="text/javascript"></script>
-	    <script src="../jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-    
+
+	    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	    <script type="text/javascript" src="../jqvmap/jquery.vmap.js"></script>
+	    <script type="text/javascript" src="../jqvmap/maps/jquery.vmap.world.js" charset="utf-8"></script>
+
 		<script type="text/javascript">
 		jQuery(document).ready(function() {
 			jQuery('#vmap').vectorMap({ map: 'world_en' });
@@ -54,10 +58,10 @@ While initializing a map you can provide parameters to change its look and feel.
 	    onRegionClick: function(element, code, region)
 	    {
 	        var message = 'You clicked "'
-	            + region 
+	            + region
 	            + '" which has the code: '
 	            + code.toUpperCase();
-             
+
 	        alert(message);
 	    }
 	});
@@ -301,7 +305,7 @@ This is the Region that you are looking to have preselected (two letter ISO code
 	ZA = South Africa
 	ZM = Zambia
 	ZW = Zimbabwe
- 
+
 	USA
 	------------------------------
 	AK = Alaska
@@ -355,7 +359,7 @@ This is the Region that you are looking to have preselected (two letter ISO code
 	WI = Wisconsin
 	WV = West Virginia
 	WY = Wyoming
- 
+
 	EUROPE
 	------------------------------
 	AD = Andorra
@@ -419,7 +423,7 @@ This is the Region that you are looking to have preselected (two letter ISO code
 	TN = Tunisia
 	TR = Turkey
 	UA = Ukraine
- 
+
 	GERMANY
 	------------------------------
 	BB = Brandenburg
@@ -484,7 +488,7 @@ This is the Region that you are looking to have preselected (two letter ISO code
 	KB = Kabardino-Balkar Republic
 	KH = Karachay–Cherkess Republic
 	CC = Chechen Republic
-	IN = Republic of Ingushetia			
+	IN = Republic of Ingushetia
 	AD = Republic of Adygea
 	KS = Krasnodar Krai
 	RO = Rostov Oblast
@@ -596,46 +600,46 @@ You can define callback function when you initialize JQVMap:
 	{
 	    onLabelShow: function(event, label, code)
 	    {
-     
+
 	    },
 	    onRegionOver: function(event, code, region)
 	    {
-     
+
 	    },
 	    onRegionOut: function(event, code, region)
 	    {
-     
+
 	    },
 	    onRegionClick: function(event, code, region)
 	    {
-     
+
 	    }
 	});
 
 Or later using standard jQuery mechanism:
 
-	jQuery('#vmap').bind('labelShow.jqvmap', 
+	jQuery('#vmap').bind('labelShow.jqvmap',
 	    function(event, label, code)
 	    {
-     
+
 	    }
 	);
-	jQuery('#vmap').bind('regionMouseOver.jqvmap', 
+	jQuery('#vmap').bind('regionMouseOver.jqvmap',
 	    function(event, code, region)
 	    {
-     
+
 	    }
 	);
 	jQuery('#vmap').bind('regionMouseOut.jqvmap',
 	    function(event, code, region)
 	    {
-     
+
 	    }
 	);
 	jQuery('#vmap').bind('regionClick.jqvmap',
 	    function(event, code, region)
 	    {
-     
+
 	    }
 	);
 
@@ -679,7 +683,7 @@ Then connect it to the page and add some code to make visualization:
 	    endColor = [0, 100, 145],
 	    colors = {},
 	    hex;
-     
+
 	//find maximum and minimum values
 	for (cc in gdpData)
 	{
@@ -692,7 +696,7 @@ Then connect it to the page and add some code to make visualization:
 	        min = parseFloat(gdpData[cc]);
 	    }
 	}
- 
+
 	//set colors according to values of GDP
 	for (cc in gdpData)
 	{
@@ -701,21 +705,21 @@ Then connect it to the page and add some code to make visualization:
 	        colors[cc] = '#';
 	        for (var i = 0; i<3; i++)
 	        {
-	            hex = Math.round(startColor[i] 
-	                + (endColor[i] 
+	            hex = Math.round(startColor[i]
+	                + (endColor[i]
 	                - startColor[i])
 	                * (gdpData[cc] / (max - min))).toString(16);
-             
+
 	            if (hex.length == 1)
 	            {
 	                hex = '0'+hex;
 	            }
-             
+
 	            colors[cc] += (hex.length == 1 ? '0' : '') + hex;
 	        }
 	    }
 	}
- 
+
 	//initialize JQVMap
 	jQuery('#vmap').vectorMap(
 	{
