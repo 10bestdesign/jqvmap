@@ -543,6 +543,45 @@ Callback function which will be called when the mouse cursor leaves the region p
 
 Callback function which will be called when the user clicks the region path. Country code will be passed to the callback as argument. This callback may be called while the user is moving the map. If you need to distinguish between a "real" click and a click resulting from moving the map, you can inspect **$(event.currentTarget).data('mapObject').isMoving**.
 
+**pins** *{ "pk" : "pk_pin_metadata", "ru" : "ru_pin_metadata",	... }*
+
+This option defines pins, which will be placed on the regions. The JSON can have only one element against one country code. Elements should be strings containing the HTML or id of the pin (depends on the 'pinMode' option explained next).
+
+**pinMode** *content*
+
+This option defines if the "pins" JSON contains the HTML strings of the pins or the ids of HTML DOM elements which are to be placed as pins.
+
+If the pin mode is "content" (or not specified) then the parameter "pins" contains the stringified html content to be placed as the pins.
+
+Example:
+
+	jQuery('#vmap').vectorMap({
+	    map: 'world_en',
+	    pins: { "pk" : "\u003cimg src=\"pk.png\" /\u003e" /*serialized <img src="pk.png" />*/, ... },
+	    pinMode: 'content'
+	});
+
+If the pin mode is "id" then the parameter "pins" contains the value of "id" attribute of the html (DOM) elements to be placed as pins.
+Example:
+
+	<script>
+		jQuery('#vmap').vectorMap({
+		    map: 'world_en',
+		    pins: { "pk" : "pin_for_pk", "ru" : "pin_for_ru", ... },
+		    pinMode: 'id'
+		});
+	</script>
+	<div style="display:none">
+		<img id="pin_for_pk" src="pk.png" />
+		<div id="pin_for_ru">...</div>
+	</div>
+
+*Note:*
+
+1) The pin is placed at the center of the rectangle bounding the country. So depending on the shape of the country, the pin might not land on the country itself. For instance, the pin for 'US' lands in the center of Alaska and rest of the US, which happens to be in the ocean between them.
+
+2) If the "pinMode" is set to "id", then the html DOM elements having those ids are NOT COPIED to the desired position, they are TRANSFERRED. This means that the elements will be removed from their original positions and placed on the map.
+
 Dynamic Updating
 ======
 
@@ -683,6 +722,74 @@ Then connect it to the page and add some code to make visualization:
 	    colors: colors,
 	    hoverOpacity: 0.7,
 	    hoverColor: false
+	});
+
+Functions
+======
+
+There are seven functions that can be called on map container:
+
+**zoomIn()** *Zoom one step in*
+
+Usage:
+
+	jQuery('#vmap').vectorMap('zoomIn');
+
+**zoomOut()** *Zoom one step out*
+
+Usage:
+
+	jQuery('#vmap').vectorMap('zoomOut');
+
+**getPinId(cc)** *Returns the html attribute "id" of the pin placed on the country whose country code is provided in "cc".*
+
+Usage:
+
+	var pinId = jQuery('#vmap').vectorMap('getPinId', 'pk');
+
+**getPin(cc)** *Returns stringified HTML of the pin placed on the country whose country code is provided in "cc".*
+
+Usage:
+
+	var pinContent = jQuery('#vmap').vectorMap('getPin', 'pk');
+
+**getPins()** *Returns an associative JSON string containing stringified HTML of all the pins.*
+
+Usage:
+
+	var pins = jQuery('#vmap').vectorMap('getPins');
+
+**removePin(cc)** *Removes the pin from the country whose country code is specified in "cc".*
+
+Usage:
+
+	jQuery('#vmap').vectorMap('removePin', 'pk');
+
+**removePins()** *Removes all the pins from the map.*
+
+Usage:
+
+	jQuery('#vmap').vectorMap('removePins');
+
+Events
+======
+
+There are three events which you can use to bind your own callbacks to:
+
+**drag** *When the map is dragged, this event is triggered.*
+
+**zoomIn** *When the map is zoomed in, this event is triggered.*
+
+**zoomOut** *When the map is zoomed out, this event is triggered.*
+
+You can bind your routines to any of these events by using jQuery on()
+For example:
+
+	//Do something when the map is dragged
+	jQuery('#vmap').on('drag', function(event)
+	{
+	    console.log('The map is being dragged');
+	    //Do something
 	});
 
 Custom Maps
