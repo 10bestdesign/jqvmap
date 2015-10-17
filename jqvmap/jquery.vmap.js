@@ -574,12 +574,19 @@
 
       for (var cc in values) {
         val = parseFloat(values[cc]);
+        if (val == NaN) {
+          continue;
+        }
         if (val > max) {
           max = values[cc];
         }
-        if (val && val < min) {
+        if (val < min) {
           min = val;
         }
+      }
+
+      if (min == max) {
+        max++; // don't let min == max
       }
 
       this.colorScale.setMin(min);
@@ -588,11 +595,7 @@
       var colors = {};
       for (cc in values) {
         val = parseFloat(values[cc]);
-        if (val) {
-          colors[cc] = this.colorScale.getColor(val);
-        } else {
-          colors[cc] = this.color;
-        }
+        colors[cc] = val != NaN ? this.colorScale.getColor(val) : this.color;
       }
       this.setColors(colors);
       this.values = values;
