@@ -439,25 +439,109 @@ This is the Region that you are looking to have preselected (two letter ISO code
 	ST = Sachsen-Anhalt
 	TH = ThÃri
 
+	RUSSIA
+	------------------------------
+	CH = Chukotka Autonomous Okrug
+	KA = Kamchatka Krai
+	MA = Magadan Oblast
+	SA = Sakha Republic
+	AM = Amur Oblast
+	PR = Primorsky Krai
+	EU = Jewish Autonomous Oblast
+	HA = Khabarovsk Krai
+	SH = Sakhalin Oblast
+	OM = Omsk Oblast
+	NV = Novosibirsk Oblast
+	AL = Altai Krai
+	LT = Altai Republic
+	TV = Tuva Republic
+	HK = Republic of Khakassia
+	KM = Kemerovo Oblast
+	TM = Tomsk Oblast
+	ZB = Zabaykalsky Krai
+	BR = Buryat Republic
+	IR = Irkutsk Oblast
+	KR = Krasnoyarsk Krai
+	YA = Yamalo-Nenets Autonomous Okrug
+	HT = Khanty–Mansi Autonomous Okrug
+	TU = Tyumen Oblast
+	KU = Kurgan Oblast
+	CL = Chelyabinsk Oblast
+	SV = Sverdlovsk Oblast
+	AR = Arkhangelsk Oblast
+	NE = Nenets Autonomous Okrug
+	KO = Komi Republic
+	MU = Murmansk Oblast
+	VO = Vologda Oblast
+	NO = Novgorod Oblast
+	PS = Pskov Oblast
+	LE = Leningrad Oblast
+	KL = Republic of Karelia
+	KN = Kaliningrad Oblast
+	DA = Republic of Dagestan
+	ST = Stavropol Krai
+	SO = Republic of North Ossetia–Alania
+	KB = Kabardino-Balkar Republic
+	KH = Karachay–Cherkess Republic
+	CC = Chechen Republic
+	IN = Republic of Ingushetia			
+	AD = Republic of Adygea
+	KS = Krasnodar Krai
+	RO = Rostov Oblast
+	KK = Republic of Kalmykia
+	AS = Astrakhan Oblast
+	VL = Volgograd Oblast
+	TR = Tver Oblast
+	SM = Smolensk Oblast
+	BN = Bryansk Oblast
+	KY = Kursk Oblast
+	BL = Belgorod Oblast
+	OR = Oryol Oblast
+	KJ = Kaluga Oblast
+	TL = Tula Oblast
+	LP = Lipetsk Oblast
+	MC = Moscow Oblast
+	RZ = Ryazan Oblast
+	TB = Tambov Oblast
+	VM = Vladimir Oblast
+	IV = Ivanovo Oblast
+	YR = Yaroslavl Oblast
+	KT = Kostroma Oblast
+	NN = Nizhny Novgorod Oblast
+	MR = Republic of Mordovia
+	PZ = Penza Oblast
+	SR = Saratov Oblast
+	SS = Samara Oblast
+	OB = Orenburg Oblast
+	BS = Republic of Bashkortostan
+	UL = Ulyanovsk Oblast
+	CU = Chuvash Republic
+	TA = Republic of Tatarstan
+	ML = Mari El Republic
+	UD = Udmurt Republic
+	KI = Kirov Oblast
+	PE = Perm Krai
+	VN = Voronezh Oblast
+
 **showTooltip** *boolean*
 
 Whether to show Tooltips on Mouseover ( true or false, defaults to true)
 
-**onLabelShow** *function(element, label, code)*
+**onLabelShow** *function(event, label, code)*
 
 Callback function which will be called before label is shown. Label DOM object and country code will be passed to the callback as arguments.
 
-**onRegionOver** *function(element, code, region)*
+**onRegionOver** *function(event, code, region)*
 
 Callback function which will be called when the mouse cursor enters the region path. Country code will be passed to the callback as argument.
 
-**onRegionOut** *function(element, code, region)*
+**onRegionOut** *function(event, code, region)*
 
 Callback function which will be called when the mouse cursor leaves the region path. Country code will be passed to the callback as argument.
 
-**onRegionClick** *function(element, code, region)*
+**onRegionClick** *function(event, code, region)*
 
-Callback function which will be called when the user clicks the region path. Country code will be passed to the callback as argument.
+Callback function which will be called when the user clicks the region path. Country code will be passed to the callback as argument. This callback may be called while the user is moving the map. If you need to distinguish between a "real" click and a click resulting from moving the map, you can inspect **$(event.currentTarget).data('mapObject').isMoving**.
 
 Dynamic Updating
 ======
