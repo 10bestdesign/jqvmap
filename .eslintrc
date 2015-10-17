@@ -1,6 +1,6 @@
 {
   "globals": {
-    "jquery": true
+    "jQuery": true
   },
   "env": {
     "browser": true
@@ -12,7 +12,6 @@
     "indent": [2, 2],
     "linebreak-style": [2, "unix"],
     "semi": [2, "always"],
-    "angular/ng_di": 0,
-    "angular/ng_on_watch": 0
+    "new-cap": 0
   }
 }
