@@ -45,3 +45,4 @@ syntax: regexp
 .*.swp
 /nbproject/private/
 /nbproject/
+npm-debug.log
