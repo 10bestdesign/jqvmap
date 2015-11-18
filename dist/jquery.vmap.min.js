@@ -1,7 +1,7 @@
 /*!
  * Peter Schmalfeldlt: jQuery Vector Map Library
  * @author me@peterschmalfeldt.com
- * @version 1.1.0
+ * @version 1.2.0
  * @link http://peterschmalfeldt.com
  * @license Unauthorized copying of this file, via any medium is strictly prohibited.
  * This file cannot be copied and/or distributed without express written consent from @author.
