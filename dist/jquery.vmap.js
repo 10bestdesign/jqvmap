@@ -178,8 +178,8 @@ var WorldMap = function (params) {
     var code = regionClickEvent.target.id.split('_').pop();
     var mapClickEvent = jQuery.Event('regionClick.jqvmap');
 
-    if ( !mapClickEvent.defaultPrevented) {
-      jQuery(params.container).trigger(mapClickEvent, [code, mapData.pathes[code].name]);
+    jQuery(params.container).trigger(mapClickEvent, [code, mapData.pathes[code].name]);
+    if ( !mapClickEvent.isDefaultPrevented()) {
       if (map.isSelected(code)) {
         map.deselect(code, targetPath);
       } else {
