@@ -3,5 +3,7 @@
 syntax: glob
 
 !.gitignore
+.DS_Store
+Thumbs.db
 .idea
 node_modules

@@ -1,6 +1,6 @@
 ![JQVMap](http://jqvmap.com/img/logo.png "JQVMap")
 
-This project is a heavily modified version of [jVectorMap](https://github.com/bjornd/jvectormap).  I chose to start fresh rather than fork their project as my intentions were to take it in such a different direction that it would become incompatibale with the original source, rendering it near impossible to merge our projects together without extreme complications.
+This project is a heavily modified version of [jVectorMap](https://github.com/bjornd/jvectormap) as it was in April of 2012.  I chose to start fresh rather than fork their project as my intentions were to take it in such a different direction that it would become incompatibale with the original source, rendering it near impossible to merge our projects together without extreme complications.
 
 **Tests:** [![Circle CI](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master.svg?style=svg&circle-token=7bce3b80868ea5ca32009a195c4436db91e5ea67)](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master)
 
@@ -8,17 +8,19 @@ This project is a heavily modified version of [jVectorMap](https://github.com/bj
 jQuery Vector Map
 ======
 
-To get started, all you need to do is include the JavaScript and CSS files for the map you want to load.  Here is a sample HTML page for loading the World Map with default settings:
+To get started, all you need to do is include the JavaScript and CSS files for the map you want to load ( contained in the `./dist` folder ).
+
+#### Here is a sample HTML page for loading the World Map with default settings:
 
 ```html
 <html>
   <head>
     <title>JQVMap - World Map</title>
-    <link href="../jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../dist/jqvmap.css" media="screen" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../jqvmap/jquery.vmap.js"></script>
-    <script type="text/javascript" src="../jqvmap/maps/jquery.vmap.world.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../dist/jquery.vmap.js"></script>
+    <script type="text/javascript" src="../dist/maps/jquery.vmap.world.js" charset="utf-8"></script>
 
     <script type="text/javascript">
     jQuery(document).ready(function() {
@@ -65,6 +67,11 @@ jQuery('#vmap').vectorMap(
     }
 });
 ```
+
+More Examples
+------
+
+You can see a variety of examples in the `./examples` folder.
 
 Configuration Settings
 ------
