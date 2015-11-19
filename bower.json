@@ -20,7 +20,7 @@
     "url": "https://github.com/manifestinteractive/jqvmap.git"
   },
   "dependencies": {
-    "jquery": "~1.11.3"
+    "jquery": ">=1.11.3"
   },
   "ignore": [
     "**/.*",
