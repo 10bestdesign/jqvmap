@@ -5,7 +5,7 @@
  * @link http://peterschmalfeldt.com
  * @license Unauthorized copying of this file, via any medium is strictly prohibited.
  * This file cannot be copied and/or distributed without express written consent from @author.
- * @builddate 2015/11/18
+ * @builddate 2015/12/04
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -119,9 +119,9 @@ var WorldMap = function (params) {
 
   map.countries = [];
 
-  for (var key in mapData.pathes) {
+  for (var key in mapData.paths) {
     var path = this.canvas.createPath({
-      path: mapData.pathes[key].path
+      path: mapData.paths[key].path
     });
 
     path.setFill(this.color);
@@ -144,12 +144,12 @@ var WorldMap = function (params) {
       regionMouseOverEvent = jQuery.Event('regionMouseOver.jqvmap');
 
     if (e.type === 'mouseover') {
-      jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.pathes[code].name]);
+      jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.paths[code].name]);
       if (!regionMouseOverEvent.isDefaultPrevented()) {
         map.highlight(code, containerPath);
       }
       if (params.showTooltip) {
-        map.label.text(mapData.pathes[code].name);
+        map.label.text(mapData.paths[code].name);
         jQuery(params.container).trigger(labelShowEvent, [map.label, code]);
 
         if (!labelShowEvent.isDefaultPrevented()) {
@@ -162,13 +162,13 @@ var WorldMap = function (params) {
       map.unhighlight(code, containerPath);
 
       map.label.hide();
-      jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.pathes[code].name]);
+      jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.paths[code].name]);
     }
   });
 
   jQuery(params.container).delegate(this.canvas.mode === 'svg' ? 'path' : 'shape', 'click', function (regionClickEvent) {
     if (!params.multiSelectRegion) {
-      for (var keyPath in mapData.pathes) {
+      for (var keyPath in mapData.paths) {
         map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
         map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
       }
@@ -178,7 +178,7 @@ var WorldMap = function (params) {
     var code = regionClickEvent.target.id.split('_').pop();
     var mapClickEvent = jQuery.Event('regionClick.jqvmap');
 
-    jQuery(params.container).trigger(mapClickEvent, [code, mapData.pathes[code].name]);
+    jQuery(params.container).trigger(mapClickEvent, [code, mapData.paths[code].name]);
     if ( !mapClickEvent.isDefaultPrevented()) {
       if (map.isSelected(code)) {
         map.deselect(code, targetPath);
@@ -690,11 +690,11 @@ VectorCanvas.prototype.setSize = function (width, height) {
     this.canvas.coordsize = width + ' ' + height;
     this.canvas.coordorigin = '0 0';
     if (this.rootGroup) {
-      var pathes = this.rootGroup.getElementsByTagName('shape');
-      for (var i = 0, l = pathes.length; i < l; i++) {
-        pathes[i].coordsize = width + ' ' + height;
-        pathes[i].style.width = width + 'px';
-        pathes[i].style.height = height + 'px';
+      var paths = this.rootGroup.getElementsByTagName('shape');
+      for (var i = 0, l = paths.length; i < l; i++) {
+        paths[i].coordsize = width + ' ' + height;
+        paths[i].style.width = width + 'px';
+        paths[i].style.height = height + 'px';
       }
       this.rootGroup.coordsize = width + ' ' + height;
       this.rootGroup.style.width = width + 'px';
@@ -865,7 +865,7 @@ WorldMap.prototype.placePins = function(pins, pinMode){
       if(jQuery('#' + map.getCountryId(index)).length === 0){
         return;
       }
-      //mapData.pathes[code].name
+
       var pinIndex = map.getPinId(index);
       var $pin = jQuery('#' + pinIndex);
       if($pin.length > 0){
@@ -890,7 +890,7 @@ WorldMap.prototype.placePins = function(pins, pinMode){
 
   this.positionPins();
   if(!this.pinHandlers){
-    this.pinHandlers = true;//do only once
+    this.pinHandlers = true;
     var positionFix = function(){
       map.positionPins();
     };

@@ -100,6 +100,22 @@ If you would like to test the sample map config files we have in this project, y
 Creating Maps
 ---
 
+#### Setup Environment
+
+As detected by [@andreasspeck](https://github.com/andreasspeck) you will need to add the following Environmental Variable to create more complex maps without issues.  In a Terminal Window, run the following command before attempting to create a map:
+
+```bash
+export OGR_ENABLE_PARTIAL_REPROJECTION=TRUE
+```
+
+If you plan on creating multiple maps in the future, you may wish to just add that line above to your profile by editing your `.bash_profile`, `.profile` or `.zshrc` file ( whatever you are using OS ).
+
+If you choose to edit your profile, make sure you run the source command to add it to your current Terminal session.
+
+```bash
+source .bash_profile
+```
+
 #### Map Configurations
 
 You can create a custom JSON file and save it in the `./create/config` folder.
@@ -135,7 +151,7 @@ Once you have created a config file, and set the `file_name` for `read_data` and
 
 ```bash
 cd /path/to/jqvmap/create
-python processor.py config/my-map.json
+python jqvmap.py config/my-map.json
 ```
 
 The map creator will output the new JQVMap files into the `./create/output` folder.
@@ -146,9 +162,9 @@ We have already setup a few custom config files for you to play with. With a Ter
 
 ```bash
 cd /path/to/jqvmap/create
-python processor.py config/continent.json
-python processor.py config/new-york.json
-python processor.py config/syria.json
+python jqvmap.py config/continent.json
+python jqvmap.py config/new-york.json
+python jqvmap.py config/syria.json
 ```
 
 #### Map Configuration JSON Options:

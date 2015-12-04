@@ -47,9 +47,9 @@ var WorldMap = function (params) {
 
   map.countries = [];
 
-  for (var key in mapData.pathes) {
+  for (var key in mapData.paths) {
     var path = this.canvas.createPath({
-      path: mapData.pathes[key].path
+      path: mapData.paths[key].path
     });
 
     path.setFill(this.color);
@@ -72,12 +72,12 @@ var WorldMap = function (params) {
       regionMouseOverEvent = jQuery.Event('regionMouseOver.jqvmap');
 
     if (e.type === 'mouseover') {
-      jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.pathes[code].name]);
+      jQuery(params.container).trigger(regionMouseOverEvent, [code, mapData.paths[code].name]);
       if (!regionMouseOverEvent.isDefaultPrevented()) {
         map.highlight(code, containerPath);
       }
       if (params.showTooltip) {
-        map.label.text(mapData.pathes[code].name);
+        map.label.text(mapData.paths[code].name);
         jQuery(params.container).trigger(labelShowEvent, [map.label, code]);
 
         if (!labelShowEvent.isDefaultPrevented()) {
@@ -90,13 +90,13 @@ var WorldMap = function (params) {
       map.unhighlight(code, containerPath);
 
       map.label.hide();
-      jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.pathes[code].name]);
+      jQuery(params.container).trigger('regionMouseOut.jqvmap', [code, mapData.paths[code].name]);
     }
   });
 
   jQuery(params.container).delegate(this.canvas.mode === 'svg' ? 'path' : 'shape', 'click', function (regionClickEvent) {
     if (!params.multiSelectRegion) {
-      for (var keyPath in mapData.pathes) {
+      for (var keyPath in mapData.paths) {
         map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
         map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
       }
@@ -106,7 +106,7 @@ var WorldMap = function (params) {
     var code = regionClickEvent.target.id.split('_').pop();
     var mapClickEvent = jQuery.Event('regionClick.jqvmap');
 
-    jQuery(params.container).trigger(mapClickEvent, [code, mapData.pathes[code].name]);
+    jQuery(params.container).trigger(mapClickEvent, [code, mapData.paths[code].name]);
     if ( !mapClickEvent.isDefaultPrevented()) {
       if (map.isSelected(code)) {
         map.deselect(code, targetPath);

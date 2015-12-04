@@ -4,9 +4,7 @@ import csv
 import shapely.wkb
 import shapely.geometry
 import shapely.ops
-import codecs
 import os
-import inspect
 import copy
 from osgeo import ogr
 from osgeo import osr
@@ -14,7 +12,7 @@ from booleano.parser import Grammar, EvaluableParseManager, SymbolTable, Bind
 from booleano.operations import Variable
 
 
-class Map:
+class JQVMap:
   def __init__(self, name, language):
     self.paths = {}
     self.name = name
@@ -28,7 +26,7 @@ class Map:
 
   def getJSCode(self):
     map = {"paths": self.paths, "width": self.width, "height": self.height, "insets": self.insets, "projection": self.projection}
-    return "jQuery.fn.vectorMap('addMap', '"+self.name+"_"+self.projection['type']+"',"+json.dumps(map)+');'
+    return "/** JQVMap " + self.projection['type'] + " map for " + self.name + "  */\njQuery.fn.vectorMap('addMap', '" + self.name + "-" + self.projection['type'] + "'," + json.dumps(map)+');'
 
 
 class Converter:
@@ -50,7 +48,7 @@ class Converter:
 
     self.config = args
 
-    self.map = Map(args['name'], args.get('language'))
+    self.map = JQVMap(args['name'], args.get('language'))
 
     if args.get('sources'):
       self.sources = args['sources']
@@ -196,7 +194,7 @@ class Converter:
               path += 'l' + str( round(point[0]/scale - ring.coords[pointIndex-1][0]/scale, self.precision) )
               path += ',' + str( round(ring.coords[pointIndex-1][1]/scale - point[1]/scale, self.precision) )
           path += 'Z'
-      self.map.addPath(path, geometry.properties[self.config['code_field']], geometry.properties[self.config['name_field']])
+      self.map.addPath(path, geometry.properties[self.config['code_field']].lower(), geometry.properties[self.config['name_field']])
     return bbox
 
 

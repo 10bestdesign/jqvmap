@@ -10,7 +10,7 @@ WorldMap.prototype.placePins = function(pins, pinMode){
       if(jQuery('#' + map.getCountryId(index)).length === 0){
         return;
       }
-      //mapData.pathes[code].name
+
       var pinIndex = map.getPinId(index);
       var $pin = jQuery('#' + pinIndex);
       if($pin.length > 0){
@@ -35,7 +35,7 @@ WorldMap.prototype.placePins = function(pins, pinMode){
 
   this.positionPins();
   if(!this.pinHandlers){
-    this.pinHandlers = true;//do only once
+    this.pinHandlers = true;
     var positionFix = function(){
       map.positionPins();
     };
