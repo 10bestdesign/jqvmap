@@ -23,11 +23,16 @@ You will need to have the following installed:
 Note: If you have issues installing either Python Package, please see the links in the Requirements Overview for detailed install instructions.
 
 
-#### Installing Software:
+Installing Software:
+---
 
-__\#1__. Download & Install Python by clicking one of the Download Python buttons on the [Python Website](https://www.python.org/downloads/).  We are using `v2.7.10`.
+#### Step #1:
 
-__\#2__. Open a Terminal window and make sure Python installed correctly by typing the following:
+Download & Install Python by clicking one of the Download Python buttons on the [Python Website](https://www.python.org/downloads/).  We are using `v2.7.10`.
+
+#### Step #2:
+
+Open a Terminal window and make sure Python installed correctly by typing the following:
 
 ```bash
 which pip
@@ -45,13 +50,15 @@ You may also wish to update PIP to disable warnings in the future:
 pip install --upgrade pip
 ```
 
-__\#3__. Now we need to install the GDAL OS Binary.  Visit the [GDAL/OGR binaries](http://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries) and follow the steps they layout for your designated OS.
+#### Step #3:
+
+Now we need to install the [GDAL/OGR binaries](http://trac.osgeo.org/gdal/wiki/DownloadingGdalBinaries) and follow the steps they layout for your designated OS.
 
 __OSX:__
 
-To simplify things, if you are on OSX, just download and install the [GDAL 1.11 Complete](http://www.kyngchaos.com/files/software/frameworks/GDAL_Complete-1.11.dmg) Package.
+Download and install the [GDAL 1.11 Complete](http://www.kyngchaos.com/files/software/frameworks/GDAL_Complete-1.11.dmg) Package.
 
-If you have [Homebew](http://brew.sh/) installed, you can run the following, though I personally had issues with it working 100%
+Alternatively, If you have [Homebew](http://brew.sh/) installed, you can run the following, though I personally had issues with it working 100%
 
 ```bash
 brew update
@@ -60,9 +67,11 @@ brew install gdal
 
 __Windows:__
 
-For Windows, you should be able to run [Maptools](http://www.maptools.org/ms4w/index.phtml?page=downloads.html) - [MS4W installer](http://www.maptools.org/dl/ms4w/ms4w-3.0.6-setup.exe) to get everything you need.
+You should be able to run [Maptools](http://www.maptools.org/ms4w/index.phtml?page=downloads.html) - [MS4W installer](http://www.maptools.org/dl/ms4w/ms4w-3.0.6-setup.exe) to get everything you need.
 
-__\#4__. With Python & GDAL Binaries installed, we can now install the required Python packages via the following Terminal Commands:
+#### Step #4:
+
+With Python & GDAL Binaries installed, we can now install the required Python packages via the following Terminal Commands:
 
 
 ```bash
