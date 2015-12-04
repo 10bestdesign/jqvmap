@@ -437,4 +437,4 @@ jQuery('#vmap').on('drag', function(event)
 Custom Maps
 ======
 
-So you want to create your own maps, or change some existing ones.  Awesome.  Make sure to check out the `./create` folder for details on how to do this.
+So you want to create your own maps, or change some existing ones.  Awesome.  Make sure to check out [./create/README.md](./create) for details on how to do this.
