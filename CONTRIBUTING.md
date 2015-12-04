@@ -19,7 +19,7 @@ To submit a ticket, visit the project's repo on [Github](https://github.com/mani
 Map Specific Issues
 ---
 
-Please note that the JQVMap team does not make the maps, nor will we make any modifications to maps that have been contributed.  If there is an issue with the map, you are more than welcome to update the map within your project.
+So you want to create your own maps, or change some existing ones.  Awesome.  Make sure to check out the `./create` folder for details on how to do this.
 
 Making Code Changes
 ---

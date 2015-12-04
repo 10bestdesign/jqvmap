@@ -73,6 +73,11 @@ More Examples
 
 You can see a variety of examples in the `./examples` folder.
 
+Custom Maps
+------
+
+So you want to create your own maps, or change some existing ones.  Awesome.  Make sure to check out the `./create` folder for details on how to do this.
+
 Configuration Settings
 ------
 
