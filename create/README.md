@@ -3,7 +3,7 @@
 Creating Custom Maps for JQVMaps
 ===
 
-Special thanks again to [jvectormap](http://jvectormap.com) for creating the base converter for this.  I have flushed out the documentation a little more for any Python newbies out there ( like myself ). But I am happy to say that I now have working maps getting created.
+Special thanks again to [jvectormap](http://jvectormap.com) for creating the base converter for this.  I have flushed out the documentation a little more for any Python newbies out there ( like myself ).
 
 Creating maps is actually a bit of work, and should really only be done by those familiar with Python & a Terminal Window, as these are the tools you will need to create maps.  If you are OK with this, here is what you need to know to get started:
 
