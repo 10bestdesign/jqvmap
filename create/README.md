@@ -20,8 +20,6 @@ You will need to have the following installed:
 4. [Shapely](https://pypi.python.org/pypi/Shapely/1.2.16) _( Python Package )_
 5. [Booleano](http://code.gustavonarea.net/booleano/index.html) _( Python Package )_
 
-Note: If you have issues installing either Python Package, please see the links in the Requirements Overview for detailed install instructions.
-
 
 Installing Software:
 ---
@@ -44,7 +42,7 @@ which should return something like ( if it did not, you did not install Python c
 /Library/Frameworks/Python.framework/Versions/2.7/bin/pip
 ```
 
-You may also wish to update PIP to disable warnings in the future:
+You may also wish to update PIP to disable upgrade warnings in the future:
 
 ```bash
 pip install --upgrade pip
@@ -67,7 +65,7 @@ brew install gdal
 
 __Windows:__
 
-You should be able to run [Maptools](http://www.maptools.org/ms4w/index.phtml?page=downloads.html) - [MS4W installer](http://www.maptools.org/dl/ms4w/ms4w-3.0.6-setup.exe) to get everything you need.
+You should be able to run [Maptools](http://www.maptools.org/ms4w/index.phtml?page=downloads.html) custom [MS4W installer](http://www.maptools.org/dl/ms4w/ms4w-3.0.6-setup.exe) to get everything you need.
 
 #### Step #4:
 
@@ -80,14 +78,17 @@ pip install shapely
 pip install booleano
 ```
 
+Note: If you have issues installing a Python Package, please visit the links in the Requirements Overview for detailed install instructions.
+
+
 Downloading Map Sources
 ---
 
-Before you can create custom maps, you need to download the vector data from the source.  You specifically need the Shapefile `.shp` file format. You will need to use a search engine to find the Shapefile for the map you want to create.  This can usually be done by just searching for something like "New York Shapefile" or "Syria Shapefile" in Google.
+Before you can create custom maps, you need to download the vector data from the source.  You will need to use a search engine to find the Shapefile for the map you want to create.  This can usually be done by just searching for something like "New York Shapefile" or "Syria Shapefile" in Google.
 
-Once you have the file you want, just download it and copy the `.shp` files you want to the `./create/source` folder in this project.
+Once you have the Shapefile you want, just download it and copy the unzipped directory of files you want to the `./create/source` folder in this project.
 
-If you would like to test the sample map config files we have in this project, you will need to download the following:
+If you would like to test the sample map config files we have in this project, you will need to download the following ( which are also good sources for maps in general ):
 
 1. [SHP/GeoDB Vector Themes](http://naciscdn.org/naturalearth/packages/natural_earth_vector.zip) from [Natural Earth](http://www.naturalearthdata.com/downloads/).  Unzip the `natural_earth_vector.zip` file and copy the entire `natural_earth_vector` folder to the `./create/source` folder in this project. __TIP:__ If you plan on using this source, `code_field` is `iso_a3` and `name_field` is `name_long`.
 
@@ -101,7 +102,36 @@ Creating Maps
 
 #### Map Configurations
 
-You can create a custom JSON file and save it in the `./create/config` folder.  Then you can run the following command in a Terminal Window.
+You can create a custom JSON file and save it in the `./create/config` folder.
+
+A sample `my-map.json` configuration file would look something like this:
+
+```json
+[
+  {
+    "name": "read_data",
+    "file_name": "./source/some-folder/some-file.shp"
+  },
+  {
+    "name": "write_data",
+    "format": "jqvmap",
+    "file_name": "./output/jquery.vmap.my-map.js",
+    "params": {
+      "code_field": "iso_column",
+      "name_field": "name_column",
+      "name": "my-map"
+    }
+  }
+]
+```
+
+You will need to pay special attention to what the `code_field` and `name_field` parameters are, as these are what are used in the map creator.  These are usually found along side your `.shp` file as either an `.csv` file or `.xml`. You might need to use a DBF Viewer to view the `.dbf` file if a CSV & XML don't exists.
+
+For `code_field` you are just looking for the column name that has the ISO Code ( 2-3 letters ).
+
+For `name_field` you are just looking for the column name that has the ISO Name ( English Name ).
+
+Once you have created a config file, and set the `file_name` for `read_data` and `write_data`, you can run the following command in a Terminal Window.
 
 ```bash
 cd /path/to/jqvmap/create
@@ -135,8 +165,8 @@ The following are the complete list of JSON configuration options for you to use
 | |`file_name`| |The name of the file to write|
 | |`format`| |Format of data to write, `jqvmap` for JQVMap compatible format, no value for OGR format|
 | |`params`| |Hash with parameters to supply to writer, the following parameters are used in case of jqvmap format:|
-| | |`code_field`|Name of field to use as a region code, This is usually found along side your `.shp` file as either an `.csv` file or `.xml`. And you are just looking for the column name that has the ISO Code ( 2-3 letters ). You might need to use a DBF Viewer to view the `.dbf` file if the CSV & XML don't exists.|
-| | |`name_field`|Name of field to use as a region name. This is usually found along side your `.shp` file as either an `.csv` file or `.xml`. And you are just looking for the column name that has the ISO Name ( English Name ). You might need to use a DBF Viewer to view the `.dbf` file if the CSV & XML don't exists.|
+| | |`code_field`|Name of field to use as a region code|
+| | |`name_field`|Name of field to use as a region name|
 | | |`name`|Map base name|
 |`union`| | |Merges geometries with the same value for one field|
 | |`by`| |The name of the field to merge geometries by|
