@@ -1,10 +1,9 @@
 /*!
- * Peter Schmalfeldlt: jQuery Vector Map Library
- * @author me@peterschmalfeldt.com
+ * JQVMap: jQuery Vector Map Library
+ * @author JQVMap
  * @version 1.2.0
- * @link http://peterschmalfeldt.com
- * @license Unauthorized copying of this file, via any medium is strictly prohibited.
- * This file cannot be copied and/or distributed without express written consent from @author.
+ * @link http://jqvmap.com
+ * @license https://raw.githubusercontent.com/manifestinteractive/jqvmap/master/LICENSE
  * @builddate 2015/12/04
  */
 
