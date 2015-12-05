@@ -8,6 +8,8 @@ Version 1.3.0
 
 `Released on December 4th, 2015`
 
+__IMPORTANT:__ This is a backwards breaking change.  You will need to use the new map files with this version of JQVMap.  Our focus was to make any file you create here compatible with the other vector map libraries as well as allow theirs to work with ours.  Everybody wins ... except our old map files.
+
 1. Added `./create` folder for users wishing to create custom maps. Folder has detailed writeup on how to create your own maps.
 
 2. Added Unit Tests to `./tests` folder and added them as part of of the `npm test` suite and build process. These tests can also be run in the browser.
