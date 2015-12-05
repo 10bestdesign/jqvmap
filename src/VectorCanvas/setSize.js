@@ -8,11 +8,11 @@ VectorCanvas.prototype.setSize = function (width, height) {
     this.canvas.coordsize = width + ' ' + height;
     this.canvas.coordorigin = '0 0';
     if (this.rootGroup) {
-      var pathes = this.rootGroup.getElementsByTagName('shape');
-      for (var i = 0, l = pathes.length; i < l; i++) {
-        pathes[i].coordsize = width + ' ' + height;
-        pathes[i].style.width = width + 'px';
-        pathes[i].style.height = height + 'px';
+      var paths = this.rootGroup.getElementsByTagName('shape');
+      for (var i = 0, l = paths.length; i < l; i++) {
+        paths[i].coordsize = width + ' ' + height;
+        paths[i].style.width = width + 'px';
+        paths[i].style.height = height + 'px';
       }
       this.rootGroup.coordsize = width + ' ' + height;
       this.rootGroup.style.width = width + 'px';

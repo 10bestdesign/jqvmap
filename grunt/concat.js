@@ -2,11 +2,10 @@ module.exports = {
 	options: {
 		banner: '/*!\n' +
 		' * <%= package.author.name %>: <%= package.description %>\n' +
-		' * @author <%= package.author.email %>\n' +
+		' * @author <%= package.author.name %>\n' +
 		' * @version <%= package.version %>\n' +
 		' * @link <%= package.author.url %>\n' +
-		' * @license Unauthorized copying of this file, via any medium is strictly prohibited.\n' +
-		' * This file cannot be copied and/or distributed without express written consent from @author.\n' +
+		' * @license https://raw.githubusercontent.com/manifestinteractive/jqvmap/master/LICENSE\n' +
 		' * @builddate <%= grunt.template.today("yyyy/mm/dd") %>\n' +
 		' */\n\n'
 	},
@@ -15,7 +14,7 @@ module.exports = {
 			'dist/jquery.vmap.js': [
 				"src/VectorCanvas.js",
 				"src/ColorScale.js",
-				"src/WorldMap.js",
+				"src/JQVMap.js",
 				"src/Base.js",
 				"src/**/*.js"
 			]

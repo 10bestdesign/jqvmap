@@ -3,6 +3,23 @@
 Change Log
 ======
 
+Version 1.3.0
+---
+
+`Released on December 4th, 2015`
+
+1. Added `./create` folder for users wishing to create custom maps. Folder has detailed writeup on how to create your own maps.
+
+2. Added Unit Tests to `./tests` folder and added them as part of of the `npm test` suite and build process. These tests can also be run in the browser.
+
+3. Renamed `WorldMap` to `JQVMap` as "WorldMap" did not really make sense as a variable name
+
+4. Removed case sensitivity for reference regions by code.
+
+5. Fixed incorrect license header in distributed files
+
+6. Updated `README.md` & `CONTRIBUTING.md` files
+
 Version 1.2.0
 ---
 

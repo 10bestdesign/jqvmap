@@ -1,7 +1,7 @@
 {
   "globals": {
     "jQuery": true,
-    "WorldMap": true,
+    "JQVMap": true,
     "VectorCanvas": true,
     "ColorScale": true
   },

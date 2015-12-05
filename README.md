@@ -73,6 +73,7 @@ More Examples
 
 You can see a variety of examples in the `./examples` folder.
 
+
 Configuration Settings
 ------
 
@@ -124,6 +125,10 @@ This function can be used to improve results of visualizations for data with non
 
 This option defines colors, with which regions will be painted when you set option values. Array scaleColors can have more then two elements. Elements should be strings representing colors in RGB hex format.
 
+**selectedColor** *'#333333'*
+
+Color for a region when you select it
+
 **selectedRegions** *['MO', 'FL', 'OR']*
 
 This is the Region that you are looking to have preselected (two letter ISO code, defaults to null ). See [REGIONS.md](REGIONS.md)
@@ -151,6 +156,14 @@ Callback function which will be called when the mouse cursor leaves the region p
 **onRegionClick** *function(event, code, region)*
 
 Callback function which will be called when the user clicks the region path. Country code will be passed to the callback as argument. This callback may be called while the user is moving the map. If you need to distinguish between a "real" click and a click resulting from moving the map, you can inspect **$(event.currentTarget).data('mapObject').isMoving**.
+
+**onRegionSelect** *function(event, code, region)*
+
+Callback function which will be called when the selects a region. Country code will be passed to the callback as argument.
+
+**onRegionDeselect** *function(event, code, region)*
+
+Callback function which will be called when the deselects a region. Country code will be passed to the callback as argument.
 
 **pins** *{ "pk" : "pk_pin_metadata", "ru" : "ru_pin_metadata",	... }*
 
@@ -436,21 +449,4 @@ jQuery('#vmap').on('drag', function(event)
 Custom Maps
 ======
 
-The following is the converter instructions directly from [jVectorMap](https://github.com/bjornd/jvectormap) that could be used to create your own maps for JQVMap from the data in various GIS formats like Shapefile. The following command could be used to convert USA map from the data available at [Natural Earth Data](http://www.naturalearthdata.com):
-
-```py
-python \
-  path/to/converter.py \
-  path/to/geo-data.shp \
-  path/to/resulting-map.js \
-  --width 900 \
-  --country_name_index 4 \
-  --where "ISO = 'USA'" \
-  --codes_file path/to/codes-en.tsv \
-  --insets '[{"codes": ["US-AK"], "width": 200, "left": 10, "top": 370}, {"codes": ["US-HI"], "width": 100, "left": 220, "top": 400}]' \
-  --minimal_area 4000000 \
-  --buffer_distance -3000 \
-  --simplify_tolerance 1000 \
-  --longtitude0 10w \
-  --name us
-```
+So you want to create your own maps, or change some existing ones.  Awesome.  Make sure to check out [./create/README.md](./create) for details on how to do this.

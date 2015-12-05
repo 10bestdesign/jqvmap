@@ -8,14 +8,14 @@ module.exports = function(grunt)
 
 	gtx.config(gruntConfig);
 
-	gtx.alias('build', ['shell:lint', 'clean:dist', 'concat:dist', 'uglify:dist']);
+	gtx.alias('build', ['shell:lint', 'clean:dist', 'concat:dist', 'uglify:dist', 'test']);
 
 	gtx.alias('release', ['build', 'bump-commit']);
 	gtx.alias('release-major', ['bump-only:major', 'release']);
 	gtx.alias('release-minor', ['bump-only:minor', 'release']);
 	gtx.alias('release-patch', ['bump-only:patch', 'release']);
 
-  gtx.alias('test', ['shell:lint']);
+  gtx.alias('test', ['shell:lint', 'qunit:dist']);
 
 	gtx.finalise();
 };

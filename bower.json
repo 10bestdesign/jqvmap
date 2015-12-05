@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "homepage": "http://jqvmap.com",
   "authors": [
-    "Peter Schmalfeldlt <me@peterschmalfeldt.com>"
+    "JQVMap"
   ],
   "license": "(MIT OR GPL-3.0)",
   "description": "jQuery Vector Map Library",
