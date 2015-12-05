@@ -40,7 +40,7 @@ VectorCanvas.prototype.createPath = function (config) {
     node.coordsize = this.width + ' ' + this.height;
     node.style.width = this.width + 'px';
     node.style.height = this.height + 'px';
-    node.fillcolor = WorldMap.defaultFillColor;
+    node.fillcolor = JQVMap.defaultFillColor;
     node.stroked = false;
     node.path = VectorCanvas.pathSvgToVml(config.path);
 

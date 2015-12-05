@@ -44,7 +44,7 @@
     }, map = this.data('mapObject');
 
     if (options === 'addMap') {
-      WorldMap.maps[arguments[1]] = arguments[2];
+      JQVMap.maps[arguments[1]] = arguments[2];
     } else if (options === 'set' && apiParams[arguments[1]]) {
       map['set' + arguments[1].charAt(0).toUpperCase() + arguments[1].substr(1)].apply(map, Array.prototype.slice.call(arguments, 2));
     } else if (typeof options === 'string' &&
@@ -55,7 +55,7 @@
       defaultParams.container = this;
       this.css({ position: 'relative', overflow: 'hidden' });
 
-      map = new WorldMap(defaultParams);
+      map = new JQVMap(defaultParams);
 
       this.data('mapObject', map);
 
@@ -64,6 +64,8 @@
           this.bind(apiEvents[e] + '.jqvmap', defaultParams[e]);
         }
       }
+
+      return map;
     }
   };
 

@@ -14,7 +14,7 @@ module.exports = {
 			'dist/jquery.vmap.js': [
 				"src/VectorCanvas.js",
 				"src/ColorScale.js",
-				"src/WorldMap.js",
+				"src/JQVMap.js",
 				"src/Base.js",
 				"src/**/*.js"
 			]

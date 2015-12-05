@@ -36,6 +36,7 @@
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-qunit": "^0.7.0",
     "grunt-contrib-uglify": "^0.10.0",
     "grunt-gulp": "^0.1.0",
     "grunt-shell": "^1.1.1",
