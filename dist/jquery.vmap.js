@@ -4,7 +4,7 @@
  * @version 1.3.0
  * @link http://jqvmap.com
  * @license https://raw.githubusercontent.com/manifestinteractive/jqvmap/master/LICENSE
- * @builddate 2015/12/04
+ * @builddate 2015/12/05
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -808,6 +808,7 @@ JQVMap.prototype.setValues = function (values) {
   for (var cc in values) {
     cc = cc.toLowerCase();
     val = parseFloat(values[cc]);
+
     if (isNaN(val)) {
       continue;
     }
@@ -830,7 +831,7 @@ JQVMap.prototype.setValues = function (values) {
   for (cc in values) {
     cc = cc.toLowerCase();
     val = parseFloat(values[cc]);
-    colors[cc] = isNaN(val) ? this.colorScale.getColor(val) : this.color;
+    colors[cc] = isNaN(val) ? this.color : this.colorScale.getColor(val);
   }
   this.setColors(colors);
   this.values = values;

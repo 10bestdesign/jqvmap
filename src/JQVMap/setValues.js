@@ -6,6 +6,7 @@ JQVMap.prototype.setValues = function (values) {
   for (var cc in values) {
     cc = cc.toLowerCase();
     val = parseFloat(values[cc]);
+
     if (isNaN(val)) {
       continue;
     }
@@ -28,7 +29,7 @@ JQVMap.prototype.setValues = function (values) {
   for (cc in values) {
     cc = cc.toLowerCase();
     val = parseFloat(values[cc]);
-    colors[cc] = isNaN(val) ? this.colorScale.getColor(val) : this.color;
+    colors[cc] = isNaN(val) ? this.color : this.colorScale.getColor(val);
   }
   this.setColors(colors);
   this.values = values;
