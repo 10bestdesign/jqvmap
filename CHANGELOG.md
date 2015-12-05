@@ -3,6 +3,13 @@
 Change Log
 ======
 
+Version 1.3.1
+---
+
+`Released on December 4th, 2015`
+
+1. Fixes issue with scaleColors not working.
+
 Version 1.3.0
 ---
 
