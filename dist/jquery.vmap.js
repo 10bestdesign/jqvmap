@@ -1,7 +1,7 @@
 /*!
  * JQVMap: jQuery Vector Map Library
  * @author JQVMap
- * @version 1.2.0
+ * @version 1.3.0
  * @link http://jqvmap.com
  * @license https://raw.githubusercontent.com/manifestinteractive/jqvmap/master/LICENSE
  * @builddate 2015/12/04
