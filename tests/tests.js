@@ -76,6 +76,7 @@ test("Test Config Options", function () {
     selectedRegions: ['us', 'mx'],
     multiSelectRegion: false,
     showTooltip: false,
+    showLabels: true,
     onLabelShow: function(){ return 'Label Showing'; },
     onRegionOver: function(){ return 'Region Over'; },
     onRegionOut: function(){ return 'Region Out'; },
@@ -108,6 +109,7 @@ test("Test Config Options", function () {
   equal(map.canvas.params.selectedRegions[1], 'mx', 'vectorMap({ selectedRegions: ["us", "mx"] }) MX set correctly');
   equal(map.canvas.params.multiSelectRegion, false, 'vectorMap({ multiSelectRegion: false }) set correctly');
   equal(map.canvas.params.showTooltip, false, 'vectorMap({ showTooltip: false }) set correctly');
+  equal(map.canvas.params.showLabels, true, 'vectorMap({ showLabels: true }) set correctly');
   equal(map.canvas.params.onLabelShow(), 'Label Showing', 'vectorMap({ onLabelShow: function(){} }) set correctly');
   equal(map.canvas.params.onRegionOver(), 'Region Over', 'vectorMap({ onRegionOver: function(){} }) set correctly');
   equal(map.canvas.params.onRegionOut(), 'Region Out', 'vectorMap({ onRegionOut: function(){} }) set correctly');
@@ -155,6 +157,26 @@ test("Test colors actually set in canvas", function () {
   equal(map.countries['us'].getFill(), '#0000FF', 'vectorMap({ colors: { us: "#0000FF", mx: "#00FF00" } }) set correctly for US');
   equal(map.countries['mx'].getFill(), '#00FF00', 'vectorMap({ colors: { us: "#0000FF", mx: "#00FF00" } }) set correctly for MX');
 
+  $container.html('');
+});
+
+test("Test labels show up", function () {
+
+  var $container = $('#test-map');
+  var testMap = $('<div id="vmap" style="width: 600px; height: 400px;"></div>');
+
+  $container.append(testMap);
+
+  var map = $('#vmap').vectorMap({
+    map: 'world_en',
+    showLabels: true
+  });
+
+  var labelsExist = (jQuery('.jqvmap_pin').length > 0);
+
+  equal(labelsExist, 1, 'vectorMap({ showLabels: true }) set correctly and label showing');
+
+  jQuery('.jqvmap_pin').remove();
   $container.html('');
 });
 
