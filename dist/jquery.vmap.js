@@ -638,10 +638,6 @@ JQVMap.prototype.makeDraggable = function () {
         self.isMoving = false;
       }, 100);
 
-      /*eslint-disable */
-      console.log('Moused Out');
-      /*eslint-enable */
-
       return false;
     }
   });
