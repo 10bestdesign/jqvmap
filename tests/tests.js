@@ -166,6 +166,33 @@ test("Test colors actually set in canvas", function () {
 
 module("jqvmap-event-handling");
 
+test("onLoad() event handler", function () {
+
+  var $container = $('#test-map');
+  var testMap = $('<div id="vmap" style="width: 600px; height: 400px;"></div>');
+  var testHandler = {
+    event: null,
+    map: null
+  };
+
+  $container.append(testMap);
+
+  var map = $('#vmap').vectorMap({
+    map: 'world_en',
+    onLoad: function(event, map){
+      testHandler.event = typeof event;
+      testHandler.map = map;
+
+      console.log(testHandler);
+    }
+  });
+
+  equal(testHandler.event, 'object', 'vectorMap({ onLoad: function(event, map }) fires correctly and returns an event');
+  equal(testHandler.map.canvas.params.map, 'world_en', 'vectorMap({ onLoad: function(event, map }) fires correctly and returns map');
+
+  $container.html('');
+});
+
 test("onLabelShow() event handler", function () {
 
   var $container = $('#test-map');

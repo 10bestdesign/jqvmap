@@ -141,6 +141,10 @@ Whether to enable more than one region to be selected at a time.
 
 Whether to show Tooltips on Mouseover ( true or false, defaults to true)
 
+**onLoad** *function(event, map)*
+
+Callback function which will be called when map is loading, returning the map event and map details.
+
 **onLabelShow** *function(event, label, code)*
 
 Callback function which will be called before label is shown. Label DOM object and country code will be passed to the callback as arguments.
@@ -223,6 +227,10 @@ You can define callback function when you initialize JQVMap:
 ```js
 jQuery('#vmap').vectorMap(
 {
+    onLoad: function(event, map)
+    {
+
+    },
     onLabelShow: function(event, label, code)
     {
 
@@ -245,6 +253,12 @@ jQuery('#vmap').vectorMap(
 Or later using standard jQuery mechanism:
 
 ```js
+jQuery('#vmap').bind('load.jqvmap',
+    function(event, map)
+    {
+
+    }
+);
 jQuery('#vmap').bind('labelShow.jqvmap',
     function(event, label, code)
     {

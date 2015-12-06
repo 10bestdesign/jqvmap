@@ -17,6 +17,7 @@
 
   var apiEvents = {
     onLabelShow: 'labelShow',
+    onLoad: 'load',
     onRegionOver: 'regionMouseOver',
     onRegionOut: 'regionMouseOut',
     onRegionClick: 'regionClick',
@@ -64,6 +65,9 @@
           this.bind(apiEvents[e] + '.jqvmap', defaultParams[e]);
         }
       }
+
+      var loadEvent = jQuery.Event('load.jqvmap');
+      jQuery(defaultParams.container).trigger(loadEvent, map);
 
       return map;
     }
