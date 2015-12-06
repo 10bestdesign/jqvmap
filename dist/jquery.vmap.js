@@ -621,6 +621,7 @@ JQVMap.prototype.makeDraggable = function () {
 
     mouseDown = false;
 
+    clearTimeout(self.isMovingTimeout);
     self.isMovingTimeout = setTimeout(function () {
       self.isMoving = false;
     }, 100);
@@ -631,9 +632,9 @@ JQVMap.prototype.makeDraggable = function () {
 
     if(mouseDown && self.isMoving){
 
-      mouseDown = false;
-
+      clearTimeout(self.isMovingTimeout);
       self.isMovingTimeout = setTimeout(function () {
+        mouseDown = false;
         self.isMoving = false;
       }, 100);
 
