@@ -45,5 +45,21 @@ JQVMap.prototype.makeDraggable = function () {
 
     return false;
 
+  }).mouseout(function () {
+
+    if(mouseDown && self.isMoving){
+
+      mouseDown = false;
+
+      self.isMovingTimeout = setTimeout(function () {
+        self.isMoving = false;
+      }, 100);
+
+      /*eslint-disable */
+      console.log('Moused Out');
+      /*eslint-enable */
+
+      return false;
+    }
   });
 };
