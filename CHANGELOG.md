@@ -3,10 +3,27 @@
 Change Log
 ======
 
+Version 1.4.0
+---
+
+`Released on December 6th, 2015`
+
+1. Added Touch Support for Mobile Devices
+
+2. Added `showLabels` config option to place ISO codes by default
+
+3. Added `onResize` event handler and fixed resize event binding issues
+
+4. Fixed issue when dragging a map and releasing outside map
+
+5. Added `onLoad` event handler
+
+6. Updated `README.md` & `CONTRIBUTING.md` files
+
 Version 1.3.1
 ---
 
-`Released on December 4th, 2015`
+`Released on December 5th, 2015`
 
 1. Fixes issue with scaleColors not working.
 
