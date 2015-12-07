@@ -28,18 +28,25 @@ var JQVMap = function (params) {
   this.resize();
 
   jQuery(window).resize(function () {
-    map.width = params.container.width();
-    map.height = params.container.height();
-    map.resize();
-    map.canvas.setSize(map.width, map.height);
-    map.applyTransform();
+    var newWidth = params.container.width();
+    var newHeight = params.container.height();
 
-    if(mapPins){
-      jQuery('.jqvmap_pin').remove();
-      map.pinHandlers = false;
-      map.placePins(mapPins.pins, mapPins.mode);
+    if(newWidth && newHeight){
+      map.width = newWidth;
+      map.height = newHeight;
+      map.resize();
+      map.canvas.setSize(map.width, map.height);
+      map.applyTransform();
+
+      var resizeEvent = jQuery.Event('resize.jqvmap');
+      jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
+
+      if(mapPins){
+        jQuery('.jqvmap_pin').remove();
+        map.pinHandlers = false;
+        map.placePins(mapPins.pins, mapPins.mode);
+      }
     }
-
   });
 
   this.canvas = new VectorCanvas(this.width, this.height, params);

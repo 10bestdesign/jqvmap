@@ -145,6 +145,10 @@ Whether to show ISO Code Labels ( true or false, defaults to false )
 
 Whether to show Tooltips on Mouseover ( true or false, defaults to true )
 
+**onLoad** *function(event, map)*
+
+Callback function which will be called when map is loading, returning the map event and map details.
+
 **onLabelShow** *function(event, label, code)*
 
 Callback function which will be called before label is shown. Label DOM object and country code will be passed to the callback as arguments.
@@ -168,6 +172,10 @@ Callback function which will be called when the selects a region. Country code w
 **onRegionDeselect** *function(event, code, region)*
 
 Callback function which will be called when the deselects a region. Country code will be passed to the callback as argument.
+
+**onResize** *function(event, width, height)*
+
+Callback function which will be called when the map is resized.  Return event, width & height.
 
 **pins** *{ "pk" : "pk_pin_metadata", "ru" : "ru_pin_metadata",	... }*
 
@@ -227,6 +235,10 @@ You can define callback function when you initialize JQVMap:
 ```js
 jQuery('#vmap').vectorMap(
 {
+    onLoad: function(event, map)
+    {
+
+    },
     onLabelShow: function(event, label, code)
     {
 
@@ -242,6 +254,10 @@ jQuery('#vmap').vectorMap(
     onRegionClick: function(event, code, region)
     {
 
+    },
+    onResize: function(event, width, height)
+    {
+
     }
 });
 ```
@@ -249,6 +265,12 @@ jQuery('#vmap').vectorMap(
 Or later using standard jQuery mechanism:
 
 ```js
+jQuery('#vmap').bind('load.jqvmap',
+    function(event, map)
+    {
+
+    }
+);
 jQuery('#vmap').bind('labelShow.jqvmap',
     function(event, label, code)
     {
@@ -269,6 +291,12 @@ jQuery('#vmap').bind('regionMouseOut.jqvmap',
 );
 jQuery('#vmap').bind('regionClick.jqvmap',
     function(event, code, region)
+    {
+
+    }
+);
+jQuery('#vmap').bind('resize.jqvmap',
+    function(event, width, height)
     {
 
     }
