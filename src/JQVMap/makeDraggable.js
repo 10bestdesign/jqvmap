@@ -39,11 +39,24 @@ JQVMap.prototype.makeDraggable = function () {
 
     mouseDown = false;
 
+    clearTimeout(self.isMovingTimeout);
     self.isMovingTimeout = setTimeout(function () {
       self.isMoving = false;
     }, 100);
 
     return false;
 
+  }).mouseout(function () {
+
+    if(mouseDown && self.isMoving){
+
+      clearTimeout(self.isMovingTimeout);
+      self.isMovingTimeout = setTimeout(function () {
+        mouseDown = false;
+        self.isMoving = false;
+      }, 100);
+
+      return false;
+    }
   });
 };
