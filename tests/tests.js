@@ -373,6 +373,36 @@ test("onRegionDeselect() event handler", function () {
   $container.html('');
 });
 
+test("onResize() event handler", function () {
+
+  var $container = $('#test-map');
+  var testMap = $('<div id="vmap" style="width: 600px; height: 400px;"></div>');
+  var testHandler = {
+    event: null,
+    width: null,
+    height: null
+  };
+
+  $container.append(testMap);
+
+  var map = $('#vmap').vectorMap({
+    map: 'world_en',
+    onResize: function(event, width, height){
+      testHandler.event = typeof event;
+      testHandler.width = width;
+      testHandler.height = height;
+    }
+  });
+
+  jQuery(window).trigger('resize');
+
+  equal(testHandler.event, 'object', 'vectorMap({ onResize: function(event, width, height){ ... } }) fires correctly and returns an event');
+  equal(testHandler.width, 600, 'vectorMap({ onResize: function(event, width, height){ ... } }) fires correctly and returns width');
+  equal(testHandler.height, 400, 'vectorMap({ onResize: function(event, width, height){ ... } }) fires correctly and returns height');
+
+  $container.html('');
+});
+
 /**
  * --------------------------------------------------------------------------------
  * Test for Known Errors

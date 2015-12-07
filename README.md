@@ -169,6 +169,10 @@ Callback function which will be called when the selects a region. Country code w
 
 Callback function which will be called when the deselects a region. Country code will be passed to the callback as argument.
 
+**onResize** *function(event, width, height)*
+
+Callback function which will be called when the map is resized.  Return event, width & height.
+
 **pins** *{ "pk" : "pk_pin_metadata", "ru" : "ru_pin_metadata",	... }*
 
 This option defines pins, which will be placed on the regions. The JSON can have only one element against one country code. Elements should be strings containing the HTML or id of the pin (depends on the 'pinMode' option explained next).
@@ -246,6 +250,10 @@ jQuery('#vmap').vectorMap(
     onRegionClick: function(event, code, region)
     {
 
+    },
+    onResize: function(event, width, height)
+    {
+
     }
 });
 ```
@@ -279,6 +287,12 @@ jQuery('#vmap').bind('regionMouseOut.jqvmap',
 );
 jQuery('#vmap').bind('regionClick.jqvmap',
     function(event, code, region)
+    {
+
+    }
+);
+jQuery('#vmap').bind('resize.jqvmap',
+    function(event, width, height)
     {
 
     }

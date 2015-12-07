@@ -22,7 +22,8 @@
     onRegionOut: 'regionMouseOut',
     onRegionClick: 'regionClick',
     onRegionSelect: 'regionSelect',
-    onRegionDeselect: 'regionDeselect'
+    onRegionDeselect: 'regionDeselect',
+    onResize: 'resize'
   };
 
   jQuery.fn.vectorMap = function (options) {
@@ -59,6 +60,8 @@
       map = new JQVMap(defaultParams);
 
       this.data('mapObject', map);
+
+      this.unbind('.jqvmap');
 
       for (var e in apiEvents) {
         if (defaultParams[e]) {
