@@ -98,11 +98,20 @@ var JQVMap = function (params) {
   this.resize();
 
   jQuery(window).resize(function () {
-    map.width = params.container.width();
-    map.height = params.container.height();
-    map.resize();
-    map.canvas.setSize(map.width, map.height);
-    map.applyTransform();
+
+    var newWidth = params.container.width();
+    var newHeight = params.container.height();
+
+    if(newWidth && newHeight){
+      map.width = newWidth;
+      map.height = newHeight;
+      map.resize();
+      map.canvas.setSize(map.width, map.height);
+      map.applyTransform();
+
+      var resizeEvent = jQuery.Event('resize.jqvmap');
+      jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
+    }
   });
 
   this.canvas = new VectorCanvas(this.width, this.height, params);
@@ -293,7 +302,8 @@ JQVMap.maps = {};
     onRegionOut: 'regionMouseOut',
     onRegionClick: 'regionClick',
     onRegionSelect: 'regionSelect',
-    onRegionDeselect: 'regionDeselect'
+    onRegionDeselect: 'regionDeselect',
+    onResize: 'resize'
   };
 
   jQuery.fn.vectorMap = function (options) {
@@ -330,6 +340,8 @@ JQVMap.maps = {};
       map = new JQVMap(defaultParams);
 
       this.data('mapObject', map);
+
+      this.unbind('.jqvmap');
 
       for (var e in apiEvents) {
         if (defaultParams[e]) {
