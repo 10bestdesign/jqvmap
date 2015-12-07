@@ -2,6 +2,7 @@ var JQVMap = function (params) {
   params = params || {};
   var map = this;
   var mapData = JQVMap.maps[params.map];
+  var mapPins;
 
   if( !mapData){
     throw new Error('Invalid "' + params.map + '" map parameter. Please make sure you have loaded this map file in your HTML.');
@@ -27,7 +28,6 @@ var JQVMap = function (params) {
   this.resize();
 
   jQuery(window).resize(function () {
-
     var newWidth = params.container.width();
     var newHeight = params.container.height();
 
@@ -40,6 +40,12 @@ var JQVMap = function (params) {
 
       var resizeEvent = jQuery.Event('resize.jqvmap');
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
+
+      if(mapPins){
+        jQuery('.jqvmap_pin').remove();
+        map.pinHandlers = false;
+        map.placePins(mapPins.pins, mapPins.mode);
+      }
     }
   });
 
@@ -180,8 +186,33 @@ var JQVMap = function (params) {
   this.bindZoomButtons();
 
   if(params.pins) {
+    mapPins = {
+      pins: params.pins,
+      mode: params.pinMode
+    };
+
     this.pinHandlers = false;
     this.placePins(params.pins, params.pinMode);
+  }
+
+  if(params.showLabels){
+    this.pinHandlers = false;
+
+    var pins = {};
+    for (key in map.countries){
+      if (typeof map.countries[key] !== 'function') {
+        if( !params.pins || !params.pins[key] ){
+          pins[key] = key.toUpperCase();
+        }
+      }
+    }
+
+    mapPins = {
+      pins: pins,
+      mode: 'content'
+    };
+
+    this.placePins(pins, 'content');
   }
 
   JQVMap.mapIndex++;

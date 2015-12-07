@@ -137,9 +137,13 @@ This is the Region that you are looking to have preselected (two letter ISO code
 
 Whether to enable more than one region to be selected at a time.
 
+**showLabels** *boolean*
+
+Whether to show ISO Code Labels ( true or false, defaults to false )
+
 **showTooltip** *boolean*
 
-Whether to show Tooltips on Mouseover ( true or false, defaults to true)
+Whether to show Tooltips on Mouseover ( true or false, defaults to true )
 
 **onLoad** *function(event, map)*
 
