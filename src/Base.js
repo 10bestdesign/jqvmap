@@ -33,6 +33,7 @@
       backgroundColor: '#a5bfdd',
       color: '#f4f3f0',
       hoverColor: '#c9dfaf',
+      hoverColors: {},
       selectedColor: '#c9dfaf',
       scaleColors: ['#b6d6ff', '#005ace'],
       normalizeFunction: 'linear',
