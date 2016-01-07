@@ -19,6 +19,7 @@ var JQVMap = function (params) {
   this.color = params.color;
   this.selectedColor = params.selectedColor;
   this.hoverColor = params.hoverColor;
+  this.hoverColors = params.hoverColors;
   this.hoverOpacity = params.hoverOpacity;
   this.setBackgroundColor(params.backgroundColor);
 

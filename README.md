@@ -113,6 +113,10 @@ Whether to Enable Map Zoom ( true or false, defaults to true)
 
 Color of the region when mouse pointer is over it.
 
+**hoverColors**
+
+Colors of individual map regions when mouse pointer is over it. Keys of the colors objects are country codes according to ISO 3166-1 alpha-2 standard. Keys of colors must be in lower case.
+
 **hoverOpacity** *0.5*
 
 Opacity of the region when mouse pointer is over it.

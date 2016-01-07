@@ -69,6 +69,9 @@ test("Test Config Options", function () {
     },
     enableZoom: false,
     hoverColor: '#0000FF',
+    hoverColors: {
+      us: '#ff0000'
+    },
     hoverOpacity: 0.7,
     normalizeFunction: 'polynomial',
     scaleColors: ['#b6d6ff', '#005ace'],
@@ -96,6 +99,7 @@ test("Test Config Options", function () {
   equal(map.canvas.params.colors['us'], '#ff0000', 'vectorMap({ colors: { us: "#ff0000" } }) set correctly');
   equal(map.canvas.params.enableZoom, false, 'vectorMap({ enableZoom: false }) set correctly');
   equal(map.canvas.params.hoverColor, '#0000FF', 'vectorMap({ hoverColor: "#0000FF" }) set correctly');
+  equal(map.canvas.params.hoverColors['us'], '#ff0000', 'vectorMap({ hoverColors: { us: "#ff0000" } }) set correctly');
   equal(map.canvas.params.hoverOpacity, 0.7, 'vectorMap({ hoverOpacity: 0.7 }) set correctly');
   equal(map.canvas.params.normalizeFunction, 'polynomial', 'vectorMap({ normalizeFunction: "polynomial" }) set correctly');
   equal(map.canvas.params.scaleColors[0][0], 182, 'vectorMap({ scaleColors: ["#b6d6ff", "#005ace"] }) first color red set correctly');
