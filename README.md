@@ -316,11 +316,18 @@ jQuery('#vmap').vectorMap(
     {
         if (code == 'ca')
         {
+            // Hide the label
             event.preventDefault();
         }
         else if (code == 'ru')
         {
+            // Plain TEXT labels
             label.text('Bears, vodka, balalaika');
+        }
+        else if (code == 'us')
+        {
+            // HTML Based Labels. You can use any HTML you want, this is just an example
+            label.html('<div class="map-tooltip"><h1 class="header">Header</h1><p class="description">Some Description</p></div>');
         }
     },
     onRegionOver: function(event, code)

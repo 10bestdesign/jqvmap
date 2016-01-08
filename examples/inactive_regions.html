@@ -12,6 +12,8 @@
     <script type="text/javascript" src="../dist/maps/jquery.vmap.usa.js" charset="utf-8"></script>
 
     <script>
+      var map;
+
       jQuery(document).ready(function () {
 
         // Store currentRegion
@@ -20,10 +22,10 @@
         // List of Regions we'll let clicks through for
         var enabledRegions = ['mo', 'fl', 'or'];
 
-        jQuery('#vmap').vectorMap({
+        map = jQuery('#vmap').vectorMap({
           map: 'usa_en',
           enableZoom: true,
-          showTooltip: false,
+          showTooltip: true,
           selectedColor: '#333333',
           selectedRegions: ['fl'],
           hoverColor: null,
@@ -40,6 +42,14 @@
             } else {
               // Enabled Region. Update Newly Selected Region.
               currentRegion = code;
+            }
+          },
+          onRegionSelect: function(event, code, region){
+            console.log(map.selectedRegions);
+          },
+          onLabelShow: function(event, label, code){
+            if(enabledRegions.indexOf(code) === -1){
+              event.preventDefault();
             }
           }
         });
