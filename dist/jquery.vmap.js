@@ -4,7 +4,7 @@
  * @version 1.4.0
  * @link http://jqvmap.com
  * @license https://raw.githubusercontent.com/manifestinteractive/jqvmap/master/LICENSE
- * @builddate 2015/12/06
+ * @builddate 2016/01/08
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -90,6 +90,7 @@ var JQVMap = function (params) {
   this.color = params.color;
   this.selectedColor = params.selectedColor;
   this.hoverColor = params.hoverColor;
+  this.hoverColors = params.hoverColors;
   this.hoverOpacity = params.hoverOpacity;
   this.setBackgroundColor(params.backgroundColor);
 
@@ -187,12 +188,6 @@ var JQVMap = function (params) {
   });
 
   jQuery(params.container).delegate(this.canvas.mode === 'svg' ? 'path' : 'shape', 'click', function (regionClickEvent) {
-    if (!params.multiSelectRegion) {
-      for (var keyPath in mapData.paths) {
-        map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
-        map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
-      }
-    }
 
     var targetPath = regionClickEvent.target;
     var code = regionClickEvent.target.id.split('_').pop();
@@ -201,6 +196,14 @@ var JQVMap = function (params) {
     code = code.toLowerCase();
 
     jQuery(params.container).trigger(mapClickEvent, [code, mapData.paths[code].name]);
+
+    if ( !params.multiSelectRegion && !mapClickEvent.isDefaultPrevented()) {
+      for (var keyPath in mapData.paths) {
+        map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
+        map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
+      }
+    }
+
     if ( !mapClickEvent.isDefaultPrevented()) {
       if (map.isSelected(code)) {
         map.deselect(code, targetPath);
@@ -345,6 +348,7 @@ JQVMap.maps = {};
       backgroundColor: '#a5bfdd',
       color: '#f4f3f0',
       hoverColor: '#c9dfaf',
+      hoverColors: {},
       selectedColor: '#c9dfaf',
       scaleColors: ['#b6d6ff', '#005ace'],
       normalizeFunction: 'linear',
@@ -617,6 +621,9 @@ JQVMap.prototype.highlight = function (cc, path) {
   path = path || jQuery('#' + this.getCountryId(cc))[0];
   if (this.hoverOpacity) {
     path.setOpacity(this.hoverOpacity);
+  } else if (this.hoverColors && (cc in this.hoverColors)) {
+    path.currentFillColor = path.getFill() + '';
+    path.setFill(this.hoverColors[cc]);
   } else if (this.hoverColor) {
     path.currentFillColor = path.getFill() + '';
     path.setFill(this.hoverColor);

@@ -117,12 +117,6 @@ var JQVMap = function (params) {
   });
 
   jQuery(params.container).delegate(this.canvas.mode === 'svg' ? 'path' : 'shape', 'click', function (regionClickEvent) {
-    if (!params.multiSelectRegion) {
-      for (var keyPath in mapData.paths) {
-        map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
-        map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
-      }
-    }
 
     var targetPath = regionClickEvent.target;
     var code = regionClickEvent.target.id.split('_').pop();
@@ -131,6 +125,14 @@ var JQVMap = function (params) {
     code = code.toLowerCase();
 
     jQuery(params.container).trigger(mapClickEvent, [code, mapData.paths[code].name]);
+
+    if ( !params.multiSelectRegion && !mapClickEvent.isDefaultPrevented()) {
+      for (var keyPath in mapData.paths) {
+        map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
+        map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
+      }
+    }
+
     if ( !mapClickEvent.isDefaultPrevented()) {
       if (map.isSelected(code)) {
         map.deselect(code, targetPath);
