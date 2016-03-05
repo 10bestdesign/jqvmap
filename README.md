@@ -339,7 +339,7 @@ Data Visualization
 Here I want to demonstrate how visualization of some geographical-related data can be done using JQVMap. Let's visualize information about GDP in 2010 for every country. At first we need some data. Let it be site of International Monetary Fond. There we can get information in xsl format, which can be converted first to csv and then to json with any scripting language. Now we have file gdp-data.js with such content (globals are evil, I know, but just for the sake of simplification):
 
 ```js
-var sample_data = {"af":16.63,"al":11.58,"dz":158.97,...};
+var gdpData = {"af":16.63,"al":11.58,"dz":158.97,...};
 ```
 
 Then connect it to the page and add some code to make visualization:
