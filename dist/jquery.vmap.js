@@ -4,7 +4,7 @@
  * @version 1.4.0
  * @link http://jqvmap.com
  * @license https://raw.githubusercontent.com/manifestinteractive/jqvmap/master/LICENSE
- * @builddate 2016/01/08
+ * @builddate 2016/03/15
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -148,9 +148,9 @@ var JQVMap = function (params) {
     map.countries[key] = path;
 
     if (this.canvas.mode === 'svg') {
-      path.setAttribute('class', 'jvectormap-region');
+      path.setAttribute('class', 'jqvmap-region');
     } else {
-      jQuery(path).addClass('jvectormap-region');
+      jQuery(path).addClass('jqvmap-region');
     }
 
     jQuery(this.rootGroup).append(path);
