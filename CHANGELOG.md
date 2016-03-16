@@ -3,6 +3,23 @@
 Change Log
 ======
 
+Version 1.5.0
+---
+
+`Released on March 15th, 2016`
+
+1. Updated LICENSE path in packaged dist files
+
+2. Fixed bugs in labels and pins where mouse events were not passing through to clickable region
+
+3. Removed -merc suffix from map files created by map creator ( fixes #204 )
+
+4. Added new example for custom placement of pins `./examples/pins_custom.html`
+
+5. Fixed `onRegionSelect` issue not returning region ( fixes #201 )
+
+6. Added better support to make regions disabled ( see #197 and new `./examples/inactive_regions.html` )
+
 Version 1.4.0
 ---
 
