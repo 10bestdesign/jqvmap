@@ -15,6 +15,7 @@ _github_issue_numbers_this_addresses_
 - [ ] Bug Fix with passing `npm test`
 - [ ] New Feature with passing `npm test`
 - [ ] Code Improvement with passing `npm test`
+- [ ] Updated Documentation
 - [ ] New Map File & Example HTML
 
 #### What gif best describes how you feel about this work ?
