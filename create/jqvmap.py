@@ -27,7 +27,7 @@ class JQVMap:
   def getJSCode(self):
     map = {"paths": self.paths, "width": self.width, "height": self.height, "insets": self.insets, "projection": self.projection}
     header = "/** JQVMap " + self.projection['type'] + " map for " + self.name + "  */"
-    js = "jQuery.fn.vectorMap('addMap', '" + self.name + "-" + self.projection['type'] + "'," + json.dumps(map) + ");"
+    js = "jQuery.fn.vectorMap('addMap', '" + self.name + "'," + json.dumps(map) + ");"
     return  header + "\n" + js
 
 

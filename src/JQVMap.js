@@ -43,7 +43,7 @@ var JQVMap = function (params) {
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
 
       if(mapPins){
-        jQuery('.jqvmap_pin').remove();
+        jQuery('.jqvmap-pin').remove();
         map.pinHandlers = false;
         map.placePins(mapPins.pins, mapPins.mode);
       }
@@ -77,9 +77,9 @@ var JQVMap = function (params) {
     map.countries[key] = path;
 
     if (this.canvas.mode === 'svg') {
-      path.setAttribute('class', 'jvectormap-region');
+      path.setAttribute('class', 'jqvmap-region');
     } else {
-      jQuery(path).addClass('jvectormap-region');
+      jQuery(path).addClass('jqvmap-region');
     }
 
     jQuery(this.rootGroup).append(path);
@@ -117,12 +117,6 @@ var JQVMap = function (params) {
   });
 
   jQuery(params.container).delegate(this.canvas.mode === 'svg' ? 'path' : 'shape', 'click', function (regionClickEvent) {
-    if (!params.multiSelectRegion) {
-      for (var keyPath in mapData.paths) {
-        map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
-        map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
-      }
-    }
 
     var targetPath = regionClickEvent.target;
     var code = regionClickEvent.target.id.split('_').pop();
@@ -131,6 +125,14 @@ var JQVMap = function (params) {
     code = code.toLowerCase();
 
     jQuery(params.container).trigger(mapClickEvent, [code, mapData.paths[code].name]);
+
+    if ( !params.multiSelectRegion && !mapClickEvent.isDefaultPrevented()) {
+      for (var keyPath in mapData.paths) {
+        map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
+        map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
+      }
+    }
+
     if ( !mapClickEvent.isDefaultPrevented()) {
       if (map.isSelected(code)) {
         map.deselect(code, targetPath);

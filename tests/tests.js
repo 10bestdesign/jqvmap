@@ -176,11 +176,11 @@ test("Test labels show up", function () {
     showLabels: true
   });
 
-  var labelsExist = (jQuery('.jqvmap_pin').length > 0);
+  var labelsExist = (jQuery('.jqvmap-pin').length > 0);
 
   equal(labelsExist, 1, 'vectorMap({ showLabels: true }) set correctly and label showing');
 
-  jQuery('.jqvmap_pin').remove();
+  jQuery('.jqvmap-pin').remove();
   $container.html('');
 });
 
