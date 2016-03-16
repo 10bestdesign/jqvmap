@@ -1,9 +1,9 @@
 /*!
  * JQVMap: jQuery Vector Map Library
- * @author JQVMap
- * @version 1.4.0
+ * @author JQVMap <me@peterschmalfeldt.com>
+ * @version 1.5.0
  * @link http://jqvmap.com
- * @license https://raw.githubusercontent.com/manifestinteractive/jqvmap/master/LICENSE
+ * @license https://github.com/manifestinteractive/jqvmap/blob/master/LICENSE
  * @builddate 2016/03/15
  */
 
@@ -114,7 +114,7 @@ var JQVMap = function (params) {
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
 
       if(mapPins){
-        jQuery('.jqvmap_pin').remove();
+        jQuery('.jqvmap-pin').remove();
         map.pinHandlers = false;
         map.placePins(mapPins.pins, mapPins.mode);
       }
@@ -606,7 +606,7 @@ JQVMap.prototype.getPinId = function (cc) {
 };
 
 JQVMap.prototype.getPins = function(){
-  var pins = this.container.find('.jqvmap_pin');
+  var pins = this.container.find('.jqvmap-pin');
   var ret = {};
   jQuery.each(pins, function(index, pinObj){
     pinObj = jQuery(pinObj);
@@ -812,7 +812,7 @@ JQVMap.prototype.placePins = function(pins, pinMode){
       if($pin.length > 0){
         $pin.remove();
       }
-      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap_pin" style="position:absolute">' + pin + '</div>');
+      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute">' + pin + '</div>');
     });
   } else { //treat pin as id of an html content
     jQuery.each(pins, function(index, pin){
@@ -824,7 +824,7 @@ JQVMap.prototype.placePins = function(pins, pinMode){
       if($pin.length > 0){
         $pin.remove();
       }
-      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap_pin" style="position:absolute"></div>');
+      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute"></div>');
       $pin.append(jQuery('#' + pin));
     });
   }
@@ -843,7 +843,7 @@ JQVMap.prototype.placePins = function(pins, pinMode){
 
 JQVMap.prototype.positionPins = function(){
   var map = this;
-  var pins = this.container.find('.jqvmap_pin');
+  var pins = this.container.find('.jqvmap-pin');
   jQuery.each(pins, function(index, pinObj){
     pinObj = jQuery(pinObj);
     var countryId = map.getCountryId(pinObj.attr('for').toLowerCase());
@@ -867,7 +867,7 @@ JQVMap.prototype.removePin = function(cc) {
 };
 
 JQVMap.prototype.removePins = function(){
-  this.container.find('.jqvmap_pin').remove();
+  this.container.find('.jqvmap-pin').remove();
 };
 
 JQVMap.prototype.reset = function () {

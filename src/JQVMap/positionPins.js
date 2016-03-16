@@ -1,6 +1,6 @@
 JQVMap.prototype.positionPins = function(){
   var map = this;
-  var pins = this.container.find('.jqvmap_pin');
+  var pins = this.container.find('.jqvmap-pin');
   jQuery.each(pins, function(index, pinObj){
     pinObj = jQuery(pinObj);
     var countryId = map.getCountryId(pinObj.attr('for').toLowerCase());

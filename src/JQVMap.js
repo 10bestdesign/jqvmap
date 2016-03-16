@@ -43,7 +43,7 @@ var JQVMap = function (params) {
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
 
       if(mapPins){
-        jQuery('.jqvmap_pin').remove();
+        jQuery('.jqvmap-pin').remove();
         map.pinHandlers = false;
         map.placePins(mapPins.pins, mapPins.mode);
       }
