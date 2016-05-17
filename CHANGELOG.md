@@ -3,6 +3,21 @@
 Change Log
 ======
 
+Version 1.5.1
+---
+
+`Released on May 17th, 2016`
+
+1. Added a minified css file
+
+2. Removed Post Install Script
+
+3. Updated README.md
+
+4. Added Turkey Map and Example File
+
+5. Moved Github files into `.github` folder
+
 Version 1.5.0
 ---
 
