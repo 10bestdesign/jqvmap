@@ -5,15 +5,18 @@ JQVMap.prototype.positionPins = function(){
     pinObj = jQuery(pinObj);
     var countryId = map.getCountryId(pinObj.attr('for').toLowerCase());
     var countryObj = jQuery('#' + countryId);
-
-    var bbox = document.getElementById(countryId).getBBox();
-    var position = countryObj.position();
+    var bbox = countryObj[0].getBBox();
 
     var scale = map.scale;
+    var rootCoords = map.canvas.rootGroup.getBoundingClientRect();
+    var mapCoords = map.container[0].getBoundingClientRect();
 
-    var left = position.left + (bbox.width / 2) * scale - pinObj.width() / 2,
-      top = position.top + (bbox.height / 2) * scale - pinObj.height() / 2;
+    var middleX = (bbox.x * scale) + ((bbox.width * scale) / 2);
+    var middleY = (bbox.y * scale) + ((bbox.height * scale) / 2);
 
-    pinObj.css('left', left).css('top', top);
+    pinObj.css({
+      left: (rootCoords.left - mapCoords.left) + middleX - (pinObj.width() / 2),
+      top: (rootCoords.top - mapCoords.top) + middleY - (pinObj.height() / 2)
+    });
   });
 };
