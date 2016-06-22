@@ -76,7 +76,6 @@ With Python & GDAL Binaries installed, we can now install the required Python pa
 sudo easy_install GDAL
 pip install shapely
 pip install booleano
-pip install osgeo
 ```
 
 Note: If you have issues installing a Python Package, please visit the links in the Requirements Overview for detailed install instructions.
