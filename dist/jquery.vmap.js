@@ -4,7 +4,7 @@
  * @version 1.5.1
  * @link http://jqvmap.com
  * @license https://github.com/manifestinteractive/jqvmap/blob/master/LICENSE
- * @builddate 2016/06/02
+ * @builddate 2016/09/01
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -73,7 +73,6 @@ var JQVMap = function (params) {
   params = params || {};
   var map = this;
   var mapData = JQVMap.maps[params.map];
-  var mapPins;
 
   if( !mapData){
     throw new Error('Invalid "' + params.map + '" map parameter. Please make sure you have loaded this map file in your HTML.');
@@ -113,11 +112,7 @@ var JQVMap = function (params) {
       var resizeEvent = jQuery.Event('resize.jqvmap');
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
 
-      if(mapPins){
-        jQuery('.jqvmap-pin').remove();
-        map.pinHandlers = false;
-        map.placePins(mapPins.pins, mapPins.mode);
-      }
+      map.positionPins();
     }
   });
 
@@ -260,11 +255,6 @@ var JQVMap = function (params) {
   this.bindZoomButtons();
 
   if(params.pins) {
-    mapPins = {
-      pins: params.pins,
-      mode: params.pinMode
-    };
-
     this.pinHandlers = false;
     this.placePins(params.pins, params.pinMode);
   }
@@ -280,11 +270,6 @@ var JQVMap = function (params) {
         }
       }
     }
-
-    mapPins = {
-      pins: pins,
-      mode: 'content'
-    };
 
     this.placePins(pins, 'content');
   }
@@ -853,17 +838,13 @@ JQVMap.prototype.positionPins = function(){
     var scale = map.scale;
     var rootCoords = map.canvas.rootGroup.getBoundingClientRect();
     var mapCoords = map.container[0].getBoundingClientRect();
-    var coords = {
-      left: rootCoords.left - mapCoords.left,
-      top: rootCoords.top - mapCoords.top
-    };
 
     var middleX = (bbox.x * scale) + ((bbox.width * scale) / 2);
     var middleY = (bbox.y * scale) + ((bbox.height * scale) / 2);
 
     pinObj.css({
-      left: coords.left + middleX - (pinObj.width() / 2),
-      top: coords.top + middleY - (pinObj.height() / 2)
+      left: (rootCoords.left - mapCoords.left) + middleX - (pinObj.width() / 2),
+      top: (rootCoords.top - mapCoords.top) + middleY - (pinObj.height() / 2)
     });
   });
 };
