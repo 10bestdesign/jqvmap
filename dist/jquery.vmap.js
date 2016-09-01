@@ -4,7 +4,7 @@
  * @version 1.5.1
  * @link http://jqvmap.com
  * @license https://github.com/manifestinteractive/jqvmap/blob/master/LICENSE
- * @builddate 2016/09/01
+ * @builddate 2016/06/02
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -83,7 +83,6 @@ var JQVMap = function (params) {
   this.multiSelectRegion = params.multiSelectRegion;
 
   this.container = params.container;
-  this.pinContainer = jQuery('<div/>').addClass('jqvmap-pin-container').appendTo(this.container);
 
   this.defaultWidth = mapData.width;
   this.defaultHeight = mapData.height;
@@ -115,7 +114,7 @@ var JQVMap = function (params) {
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
 
       if(mapPins){
-        map.pinsContainer.empty();
+        jQuery('.jqvmap-pin').remove();
         map.pinHandlers = false;
         map.placePins(mapPins.pins, mapPins.mode);
       }
@@ -562,8 +561,6 @@ JQVMap.prototype.applyTransform = function () {
   }
 
   this.canvas.applyTransformParams(this.scale, this.transX, this.transY);
-
-  this.pinContainer.css('transform', 'translate(' + this.transX * this.scale + 'px,' + this.transY * this.scale + 'px)');
 };
 
 JQVMap.prototype.bindZoomButtons = function () {
@@ -609,7 +606,7 @@ JQVMap.prototype.getPinId = function (cc) {
 };
 
 JQVMap.prototype.getPins = function(){
-  var pins = this.pinContainer.find('.jqvmap-pin');
+  var pins = this.container.find('.jqvmap-pin');
   var ret = {};
   jQuery.each(pins, function(index, pinObj){
     pinObj = jQuery(pinObj);
@@ -815,7 +812,7 @@ JQVMap.prototype.placePins = function(pins, pinMode){
       if($pin.length > 0){
         $pin.remove();
       }
-      map.pinContainer.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute">' + pin + '</div>');
+      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute">' + pin + '</div>');
     });
   } else { //treat pin as id of an html content
     jQuery.each(pins, function(index, pin){
@@ -827,7 +824,7 @@ JQVMap.prototype.placePins = function(pins, pinMode){
       if($pin.length > 0){
         $pin.remove();
       }
-      map.pinContainer.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute"></div>');
+      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute"></div>');
       $pin.append(jQuery('#' + pin));
     });
   }
@@ -838,31 +835,35 @@ JQVMap.prototype.placePins = function(pins, pinMode){
     var positionFix = function(){
       map.positionPins();
     };
-    this.container
-      .bind('zoomIn', positionFix)
-      .bind('zoomOut', positionFix);
+    this.container.bind('zoomIn', positionFix)
+      .bind('zoomOut', positionFix)
+      .bind('drag', positionFix);
   }
 };
 
 JQVMap.prototype.positionPins = function(){
   var map = this;
-  var pins = this.pinContainer.find('.jqvmap-pin');
-  var scale = this.scale;
-  var rootCoords = this.canvas.rootGroup.getBoundingClientRect();
-  var mapCoords = this.container[0].getBoundingClientRect();
-
+  var pins = this.container.find('.jqvmap-pin');
   jQuery.each(pins, function(index, pinObj){
     pinObj = jQuery(pinObj);
     var countryId = map.getCountryId(pinObj.attr('for').toLowerCase());
     var countryObj = jQuery('#' + countryId);
     var bbox = countryObj[0].getBBox();
 
+    var scale = map.scale;
+    var rootCoords = map.canvas.rootGroup.getBoundingClientRect();
+    var mapCoords = map.container[0].getBoundingClientRect();
+    var coords = {
+      left: rootCoords.left - mapCoords.left,
+      top: rootCoords.top - mapCoords.top
+    };
+
     var middleX = (bbox.x * scale) + ((bbox.width * scale) / 2);
     var middleY = (bbox.y * scale) + ((bbox.height * scale) / 2);
 
     pinObj.css({
-      left: (rootCoords.left - mapCoords.left) + middleX - (pinObj.width() / 2) - map.transX * scale,
-      top: (rootCoords.top - mapCoords.top) + middleY - (pinObj.height() / 2) - map.transY * scale
+      left: coords.left + middleX - (pinObj.width() / 2),
+      top: coords.top + middleY - (pinObj.height() / 2)
     });
   });
 };
@@ -873,7 +874,7 @@ JQVMap.prototype.removePin = function(cc) {
 };
 
 JQVMap.prototype.removePins = function(){
-  this.pinContainer.find('.jqvmap-pin').remove();
+  this.container.find('.jqvmap-pin').remove();
 };
 
 JQVMap.prototype.reset = function () {
