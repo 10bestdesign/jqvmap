@@ -48,3 +48,9 @@
   width: 100%;
   height: 500px;
 }
+
+.jqvmap-pin-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
