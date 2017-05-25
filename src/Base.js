@@ -1,6 +1,7 @@
 (function(){
 
   var apiParams = {
+    color: 1,
     colors: 1,
     values: 1,
     backgroundColor: 1,
