@@ -17,7 +17,9 @@ var JQVMap = function (params) {
   this.defaultHeight = mapData.height;
 
   this.color = params.color;
+  this.borderColor = params.borderColor;
   this.selectedColor = params.selectedColor;
+  this.selectedBorderColor = params.selectedBorderColor;
   this.hoverColor = params.hoverColor;
   this.hoverColors = params.hoverColors;
   this.hoverOpacity = params.hoverOpacity;
@@ -73,6 +75,7 @@ var JQVMap = function (params) {
     });
 
     path.setFill(this.color);
+    path.setEdge(this.borderColor);
     path.id = map.getCountryId(key);
     map.countries[key] = path;
 
@@ -130,6 +133,8 @@ var JQVMap = function (params) {
       for (var keyPath in mapData.paths) {
         map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
         map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
+        map.countries[keyPath].currentEdgeColor = map.countries[keyPath].getOriginalEdge();
+        map.countries[keyPath].setEdge(map.countries[keyPath].getOriginalEdge());
       }
     }
 
