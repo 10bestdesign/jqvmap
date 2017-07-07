@@ -54,6 +54,7 @@ jQuery('#vmap').vectorMap(
     normalizeFunction: 'linear',
     scaleColors: ['#b6d6ff', '#005ace'],
     selectedColor: '#c9dfaf',
+    selectedBorderColor: '#ffffff',
     selectedRegions: null,
     showTooltip: true,
     onRegionClick: function(element, code, region)
@@ -132,6 +133,10 @@ This option defines colors, with which regions will be painted when you set opti
 **selectedColor** *'#333333'*
 
 Color for a region when you select it
+
+***selectedBorderColor** *'#ffffff'*
+
+Color a region border when you select it
 
 **selectedRegions** *['MO', 'FL', 'OR']*
 
