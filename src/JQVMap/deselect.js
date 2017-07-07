@@ -8,11 +8,15 @@ JQVMap.prototype.deselect = function (cc, path) {
     jQuery(this.container).trigger('regionDeselect.jqvmap', [cc]);
     path.currentFillColor = path.getOriginalFill();
     path.setFill(path.getOriginalFill());
+    path.currentEdgeColor = path.getOriginalEdge();
+    path.setEdge(path.getOriginalEdge());
   } else {
     for (var key in this.countries) {
       this.selectedRegions.splice(this.selectedRegions.indexOf(key), 1);
       this.countries[key].currentFillColor = this.color;
       this.countries[key].setFill(this.color);
+      this.countries[key].currentEdgeColor = this.borderColor;
+      this.countries[key].setEdge(this.borderColor);
     }
   }
 };

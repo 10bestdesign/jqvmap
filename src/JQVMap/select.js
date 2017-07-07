@@ -14,5 +14,9 @@ JQVMap.prototype.select = function (cc, path) {
       path.currentFillColor = this.selectedColor;
       path.setFill(this.selectedColor);
     }
+    if (this.selectedBorderColor && path) {
+      path.currentEdgeColor = this.selectedBorderColor;
+      path.setEdge(this.selectedBorderColor);
+    }
   }
 };
