@@ -1,0 +1,16 @@
+[
+  {
+    "name": "read_data",
+    "file_name": "./source/KEN_adm_shp/KEN_adm3.shp"
+  },
+  {
+    "name": "write_data",
+    "format": "jqvmap",
+    "file_name": "./output/jquery.vmap.kenya-wards-map.js",
+    "params": {
+      "code_field": "CCN_3",
+      "name_field": "NAME_3",
+      "name": "kenya-wards-map"
+    }
+  }
+]
