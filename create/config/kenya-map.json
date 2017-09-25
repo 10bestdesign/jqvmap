@@ -1,0 +1,16 @@
+[
+  {
+    "name": "read_data",
+    "file_name": "./source/KEN_adm_shp/KEN_adm0.shp"
+  },
+  {
+    "name": "write_data",
+    "format": "jqvmap",
+    "file_name": "./output/jquery.vmap.kenya-map.js",
+    "params": {
+      "code_field": "ISO",
+      "name_field": "NAME_ENGLI",
+      "name": "kenya-map"
+    }
+  }
+]

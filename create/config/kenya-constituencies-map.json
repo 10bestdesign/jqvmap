@@ -1,0 +1,16 @@
+[
+  {
+    "name": "read_data",
+    "file_name": "./source/KEN_adm_shp/KEN_adm2.shp"
+  },
+  {
+    "name": "write_data",
+    "format": "jqvmap",
+    "file_name": "./output/jquery.vmap.kenya-constituencies-map.js",
+    "params": {
+      "code_field": "CCN_2",
+      "name_field": "NAME_2",
+      "name": "kenya-constituencies-map"
+    }
+  }
+]
