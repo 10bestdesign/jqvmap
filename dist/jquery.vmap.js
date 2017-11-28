@@ -895,6 +895,7 @@ JQVMap.prototype.reset = function () {
   this.transX = this.baseTransX;
   this.transY = this.baseTransY;
   this.applyTransform();
+  this.zoomCurStep = 1;
 };
 
 JQVMap.prototype.resize = function () {
