@@ -4,6 +4,7 @@ This project is a heavily modified version of [jVectorMap](https://github.com/bj
 
 **Tests:** [![Circle CI](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master.svg?style=svg&circle-token=7bce3b80868ea5ca32009a195c4436db91e5ea67)](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master)
 
+[![Buy Me Coffee](https://peterschmalfeldt.com/buy-me-coffee.png)](https://www.paypal.me/manifestinteractive)
 
 jQuery Vector Map
 ======
