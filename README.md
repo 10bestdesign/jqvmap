@@ -4,7 +4,7 @@ This project is a heavily modified version of [jVectorMap](https://github.com/bj
 
 **Tests:** [![Circle CI](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master.svg?style=svg&circle-token=7bce3b80868ea5ca32009a195c4436db91e5ea67)](https://circleci.com/gh/manifestinteractive/jqvmap/tree/master)
 
-## IMPORTANT:  JQVMap is currently in the process of transfering ownership.
+## IMPORTANT:  JQVMap is currently in the process of transferring ownership.
 
 > JQVMap will remain Open Source but will just be maintained by a new owner.  This transfer should take place within the next 7 days.
 
