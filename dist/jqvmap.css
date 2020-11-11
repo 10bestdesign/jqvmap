@@ -25,8 +25,8 @@
 	background: #000000;
 	padding: 3px;
 	color: white;
-	width: 10px;
-	height: 10px;
+	min-width: 10px;
+	min-height: 10px;
 	cursor: pointer;
 	line-height: 10px;
 	text-align: center;
