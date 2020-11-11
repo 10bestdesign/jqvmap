@@ -2,7 +2,6 @@ var JQVMap = function (params) {
   params = params || {};
   var map = this;
   var mapData = JQVMap.maps[params.map];
-  var mapPins;
 
   if( !mapData){
     throw new Error('Invalid "' + params.map + '" map parameter. Please make sure you have loaded this map file in your HTML.');
@@ -42,11 +41,7 @@ var JQVMap = function (params) {
       var resizeEvent = jQuery.Event('resize.jqvmap');
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
 
-      if(mapPins){
-        jQuery('.jqvmap-pin').remove();
-        map.pinHandlers = false;
-        map.placePins(mapPins.pins, mapPins.mode);
-      }
+      map.positionPins();
     }
   });
 
@@ -189,11 +184,6 @@ var JQVMap = function (params) {
   this.bindZoomButtons();
 
   if(params.pins) {
-    mapPins = {
-      pins: params.pins,
-      mode: params.pinMode
-    };
-
     this.pinHandlers = false;
     this.placePins(params.pins, params.pinMode);
   }
@@ -209,11 +199,6 @@ var JQVMap = function (params) {
         }
       }
     }
-
-    mapPins = {
-      pins: pins,
-      mode: 'content'
-    };
 
     this.placePins(pins, 'content');
   }
