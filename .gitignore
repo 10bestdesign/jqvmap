@@ -7,3 +7,4 @@ syntax: glob
 Thumbs.db
 .idea
 node_modules
+.project
