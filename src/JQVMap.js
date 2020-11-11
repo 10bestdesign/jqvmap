@@ -177,13 +177,7 @@ var JQVMap = function (params) {
   }
 
   if (params.selectedRegions) {
-    if (params.selectedRegions instanceof Array) {
-      for(var k in params.selectedRegions) {
-        this.select(params.selectedRegions[k].toLowerCase());
-      }
-    } else {
-      this.select(params.selectedRegions.toLowerCase());
-    }
+    this.setSelectedRegions(params.selectedRegions);
   }
 
   this.bindZoomButtons();

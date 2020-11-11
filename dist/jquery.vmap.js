@@ -1,10 +1,10 @@
 /*!
  * JQVMap: jQuery Vector Map Library
  * @author JQVMap <me@peterschmalfeldt.com>
- * @version 1.5.1
+ * @version 1.5.2
  * @link http://jqvmap.com
  * @license https://github.com/manifestinteractive/jqvmap/blob/master/LICENSE
- * @builddate 2016/06/02
+ * @builddate 2016/11/29
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -248,13 +248,7 @@ var JQVMap = function (params) {
   }
 
   if (params.selectedRegions) {
-    if (params.selectedRegions instanceof Array) {
-      for(var k in params.selectedRegions) {
-        this.select(params.selectedRegions[k].toLowerCase());
-      }
-    } else {
-      this.select(params.selectedRegions.toLowerCase());
-    }
+    this.setSelectedRegions(params.selectedRegions);
   }
 
   this.bindZoomButtons();
@@ -853,17 +847,13 @@ JQVMap.prototype.positionPins = function(){
     var scale = map.scale;
     var rootCoords = map.canvas.rootGroup.getBoundingClientRect();
     var mapCoords = map.container[0].getBoundingClientRect();
-    var coords = {
-      left: rootCoords.left - mapCoords.left,
-      top: rootCoords.top - mapCoords.top
-    };
 
     var middleX = (bbox.x * scale) + ((bbox.width * scale) / 2);
     var middleY = (bbox.y * scale) + ((bbox.height * scale) / 2);
 
     pinObj.css({
-      left: coords.left + middleX - (pinObj.width() / 2),
-      top: coords.top + middleY - (pinObj.height() / 2)
+      left: (rootCoords.left - mapCoords.left) + middleX - (pinObj.width() / 2),
+      top: (rootCoords.top - mapCoords.top) + middleY - (pinObj.height() / 2)
     });
   });
 };
@@ -969,6 +959,19 @@ JQVMap.prototype.setScaleColors = function (colors) {
 
   if (this.values) {
     this.setValues(this.values);
+  }
+};
+
+JQVMap.prototype.setSelectedRegions = function (regions) {
+  for (var key in this.selectedRegions) {
+    this.deselect(this.selectedRegions[key], undefined);
+  }
+  if (regions instanceof Array) {
+    for(var k in regions) {
+      this.select(regions[k].toLowerCase());
+    }
+  } else {
+    this.select(regions.toLowerCase());
   }
 };
 
