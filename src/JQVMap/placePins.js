@@ -16,7 +16,7 @@ JQVMap.prototype.placePins = function(pins, pinMode){
       if($pin.length > 0){
         $pin.remove();
       }
-      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute">' + pin + '</div>');
+      map.pinContainer.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute">' + pin + '</div>');
     });
   } else { //treat pin as id of an html content
     jQuery.each(pins, function(index, pin){
@@ -28,7 +28,7 @@ JQVMap.prototype.placePins = function(pins, pinMode){
       if($pin.length > 0){
         $pin.remove();
       }
-      map.container.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute"></div>');
+      map.pinContainer.append('<div id="' + pinIndex + '" for="' + index + '" class="jqvmap-pin" style="position:absolute"></div>');
       $pin.append(jQuery('#' + pin));
     });
   }
@@ -39,8 +39,8 @@ JQVMap.prototype.placePins = function(pins, pinMode){
     var positionFix = function(){
       map.positionPins();
     };
-    this.container.bind('zoomIn', positionFix)
-      .bind('zoomOut', positionFix)
-      .bind('drag', positionFix);
+    this.container
+      .bind('zoomIn', positionFix)
+      .bind('zoomOut', positionFix);
   }
 };

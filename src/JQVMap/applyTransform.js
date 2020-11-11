@@ -28,4 +28,6 @@ JQVMap.prototype.applyTransform = function () {
   }
 
   this.canvas.applyTransformParams(this.scale, this.transX, this.transY);
+
+  this.pinContainer.css('transform', 'translate(' + this.transX * this.scale + 'px,' + this.transY * this.scale + 'px)');
 };

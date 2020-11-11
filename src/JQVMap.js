@@ -12,6 +12,7 @@ var JQVMap = function (params) {
   this.multiSelectRegion = params.multiSelectRegion;
 
   this.container = params.container;
+  this.pinContainer = jQuery('<div/>').addClass('jqvmap-pin-container').appendTo(this.container);
 
   this.defaultWidth = mapData.width;
   this.defaultHeight = mapData.height;
@@ -43,7 +44,7 @@ var JQVMap = function (params) {
       jQuery(params.container).trigger(resizeEvent, [newWidth, newHeight]);
 
       if(mapPins){
-        jQuery('.jqvmap-pin').remove();
+        map.pinsContainer.empty();
         map.pinHandlers = false;
         map.placePins(mapPins.pins, mapPins.mode);
       }
