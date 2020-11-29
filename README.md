@@ -386,7 +386,7 @@ for (cc in gdpData)
             hex = Math.round(startColor[i]
                 + (endColor[i]
                 - startColor[i])
-                * (gdpData[cc] / (max - min))).toString(16);
+                * ((gdpData[cc] - min) / (max - min))).toString(16);
 
             if (hex.length == 1)
             {
