@@ -55,8 +55,6 @@ var JQVMap = function (params) {
   this.canvas = new VectorCanvas(this.width, this.height, params);
   params.container.append(this.canvas.canvas);
 
-  this.makeDraggable();
-
   this.rootGroup = this.canvas.createGroup(true);
 
   this.index = JQVMap.mapIndex;
@@ -65,6 +63,8 @@ var JQVMap = function (params) {
   if (params.enableZoom) {
     jQuery('<div/>').addClass('jqvmap-zoomin').text('+').appendTo(params.container);
     jQuery('<div/>').addClass('jqvmap-zoomout').html('&#x2212;').appendTo(params.container);
+    
+    this.makeDraggable();
   }
 
   map.countries = [];
