@@ -88,9 +88,7 @@ var JQVMap = function (params) {
   this.defaultHeight = mapData.height;
 
   this.color = params.color;
-  this.borderColor = params.borderColor;
   this.selectedColor = params.selectedColor;
-  this.selectedBorderColor = params.selectedBorderColor;
   this.hoverColor = params.hoverColor;
   this.hoverColors = params.hoverColors;
   this.hoverOpacity = params.hoverOpacity;
@@ -146,7 +144,6 @@ var JQVMap = function (params) {
     });
 
     path.setFill(this.color);
-    path.setEdge(this.borderColor);
     path.id = map.getCountryId(key);
     map.countries[key] = path;
 
@@ -204,8 +201,6 @@ var JQVMap = function (params) {
       for (var keyPath in mapData.paths) {
         map.countries[keyPath].currentFillColor = map.countries[keyPath].getOriginalFill();
         map.countries[keyPath].setFill(map.countries[keyPath].getOriginalFill());
-        map.countries[keyPath].currentEdgeColor = map.countries[keyPath].getOriginalEdge();
-        map.countries[keyPath].setEdge(map.countries[keyPath].getOriginalEdge());
       }
     }
 
@@ -588,15 +583,11 @@ JQVMap.prototype.deselect = function (cc, path) {
     jQuery(this.container).trigger('regionDeselect.jqvmap', [cc]);
     path.currentFillColor = path.getOriginalFill();
     path.setFill(path.getOriginalFill());
-    path.currentEdgeColor = path.getOriginalEdge();
-    path.setEdge(path.getOriginalEdge());
   } else {
     for (var key in this.countries) {
       this.selectedRegions.splice(this.selectedRegions.indexOf(key), 1);
       this.countries[key].currentFillColor = this.color;
       this.countries[key].setFill(this.color);
-      this.countries[key].currentEdgeColor = this.borderColor;
-      this.countries[key].setEdge(this.borderColor);
     }
   }
 };
@@ -889,7 +880,6 @@ JQVMap.prototype.removePins = function(){
 JQVMap.prototype.reset = function () {
   for (var key in this.countries) {
     this.countries[key].setFill(this.color);
-    this.countries[key].setEdge(this.borderColor);
   }
   this.scale = this.baseScale;
   this.transX = this.baseTransX;
@@ -927,10 +917,6 @@ JQVMap.prototype.select = function (cc, path) {
     if (this.selectedColor && path) {
       path.currentFillColor = this.selectedColor;
       path.setFill(this.selectedColor);
-    }
-    if (this.selectedBorderColor && path) {
-      path.currentEdgeColor = this.selectedBorderColor;
-      path.setEdge(this.selectedBorderColor);
     }
   }
 };
@@ -1115,21 +1101,6 @@ VectorCanvas.prototype.createPath = function (config) {
       node.setAttribute('stroke-opacity', this.params.borderOpacity);
     }
 
-    node.setEdge = function (borderColor) {
-      this.setAttribute('stroke', borderColor);
-      if (this.getAttribute('originalStroke') === null) {
-        this.setAttribute('originalStroke', borderColor);
-      }
-    };
-
-    node.getEdge = function () {
-      return this.getAttribute('stroke');
-    };
-
-    node.getOriginalEdge = function () {
-      return this.getAttribute('originalStroke');
-    };
-
     node.setFill = function (color) {
       this.setAttribute('fill', color);
       if (this.getAttribute('original') === null) {
@@ -1164,19 +1135,6 @@ VectorCanvas.prototype.createPath = function (config) {
     scale.offset = '0,0';
 
     node.appendChild(scale);
-
-    node.setEdge = function (borderColor) {
-      this.getElementsByTagName('stroke')[0].borderColor = borderColor;
-      if (this.getAttribute('originalStroke') === null) {
-        this.setAttribute('originalStroke', borderColor);
-      }
-    };
-    node.getEdge = function () {
-      return this.getElementsByTagName('stroke')[0].borderColor;
-    };
-    node.getOriginalEdge = function () {
-      return this.getAttribute('originalStroke');
-    };
 
     var fill = this.createVmlNode('fill');
     node.appendChild(fill);
