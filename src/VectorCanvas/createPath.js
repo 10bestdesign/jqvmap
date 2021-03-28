@@ -16,6 +16,21 @@ VectorCanvas.prototype.createPath = function (config) {
       node.setAttribute('stroke-opacity', this.params.borderOpacity);
     }
 
+    node.setEdge = function (borderColor) {
+      this.setAttribute('stroke', borderColor);
+      if (this.getAttribute('originalStroke') === null) {
+        this.setAttribute('originalStroke', borderColor);
+      }
+    };
+
+    node.getEdge = function () {
+      return this.getAttribute('stroke');
+    };
+
+    node.getOriginalEdge = function () {
+      return this.getAttribute('originalStroke');
+    };
+
     node.setFill = function (color) {
       this.setAttribute('fill', color);
       if (this.getAttribute('original') === null) {
@@ -50,6 +65,19 @@ VectorCanvas.prototype.createPath = function (config) {
     scale.offset = '0,0';
 
     node.appendChild(scale);
+
+    node.setEdge = function (borderColor) {
+      this.getElementsByTagName('stroke')[0].borderColor = borderColor;
+      if (this.getAttribute('originalStroke') === null) {
+        this.setAttribute('originalStroke', borderColor);
+      }
+    };
+    node.getEdge = function () {
+      return this.getElementsByTagName('stroke')[0].borderColor;
+    };
+    node.getOriginalEdge = function () {
+      return this.getAttribute('originalStroke');
+    };
 
     var fill = this.createVmlNode('fill');
     node.appendChild(fill);
