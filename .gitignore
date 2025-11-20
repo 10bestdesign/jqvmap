@@ -7,3 +7,6 @@ syntax: glob
 Thumbs.db
 .idea
 node_modules
+dist/lib/
+package-lock.json
+tests/package-lock.json

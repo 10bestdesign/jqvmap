@@ -28,14 +28,14 @@ All source code for this project is contained in the `./src` folder.  Do not mak
 
 #### Requirements
 
-* [Node.js v0.10](http://nodejs.org/) ( For Application Development )
+* Node.js (use an active LTS version for development). Note: the project historically included a legacy test runner (QUnit + PhantomJS) that was written for much older Node versions (Node v0.10). That legacy runner is maintained in `tests/legacy` and may require an older Node/PhantomJS binary to run reliably. See the Testing section below for details on both test flows.
 
-Grunt Terminal Commands:
+Grunt Terminal Commands
 ---
 
 You can use the following build commands via terminal:
 
-#### Build for Distribution:
+#### Build for Distribution
 
 The following command will Concat JS files and generate minified files for Distribution.
 
@@ -45,11 +45,11 @@ This is the most common command you will want to use and is required to view any
 grunt build
 ```
 
-#### Create a Major Release:
+#### Create a Major Release
 
 The following will:
 
-1. Increase the build's major number ( e.g. v __1__.0.1 => v __2__.0.0 )
+1. Increase the build's major number ( e.g. v **1**.0.1 => v **2**.0.0 )
 2. Build & Package Distribution Files
 3. Perform a git commit
 
@@ -57,11 +57,11 @@ The following will:
 grunt release-major
 ```
 
-#### Create a Minor Release:
+#### Create a Minor Release
 
 The following will:
 
-1. Increase the build's minor number ( e.g. v 1.__0__.1 => v 1.__1__.0 )
+1. Increase the build's minor number ( e.g. v 1.**0**.1 => v 1.**1**.0 )
 2. Build & Package Distribution Files
 3. Perform a git commit
 
@@ -69,11 +69,11 @@ The following will:
 grunt release-minor
 ```
 
-#### Create a Release Patch:
+#### Create a Release Patch
 
 The following will:
 
-1. Increase the build's patch number ( e.g. v 1.1.__1__ => v 1.1.__2__ )
+1. Increase the build's patch number ( e.g. v 1.1.**1** => v 1.1.**2** )
 2. Build & Package Distribution Files
 3. Perform a git commit
 
@@ -88,13 +88,13 @@ Code will not be merged into the master branch unless it has been submitted as a
 
 All Pull Requests must be reviewed by one of your peers before it can be merged into master.
 
-#### Creating a Pull Request Assumes:
+#### Creating a Pull Request Assumes
 
 1. You have read and understand our [Coding Culture](https://github.com/manifestinteractive/culture)
 2. You are working off a git branch named after a corresponding Github ticket
 3. You have merged in the latest master branch and resolved all merge conflicts
 
-#### Create Pull Request:
+#### Create Pull Request
 
 1. Commit and push your Github ticket branch using [Git Best Practices](https://github.com/manifestinteractive/culture/blob/master/docs/git-best-practices.md)
 2. Visit the project's repo on [Github](https://github.com/manifestinteractive/jqvmap) and click **Compare & pull request**
@@ -104,7 +104,7 @@ All Pull Requests must be reviewed by one of your peers before it can be merged 
 6. Add a Label of **Ready for Code Review**
 7. Click **Create pull request**
 
-#### Review Pull Request:
+#### Review Pull Request
 
 1. Visit the PR you are being asked to review
 2. Before starting your PR Review, remove the Label **Ready for Review** and add the Label **In Code Review**

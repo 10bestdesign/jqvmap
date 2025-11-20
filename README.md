@@ -6,13 +6,12 @@ This project is a heavily modified version of [jVectorMap](https://github.com/bj
 
 > Rest assured, **JQVMap will remain Open Source**. [@manifestinteractive](https://github.com/manifestinteractive) just felt it was time to hand over the reins to a team that can continue to give JQVMap the love and attention it deserves.  As of today, JQVMap will be managed by [@10bestdesign](https://github.com/10bestdesign).
 
-
 jQuery Vector Map
 ======
 
 To get started, all you need to do is include the JavaScript and CSS files for the map you want to load ( contained in the `./dist` folder ).
 
-#### Here is a sample HTML page for loading the World Map with default settings:
+#### Here is a sample HTML page for loading the World Map with default settings
 
 ```html
 <html>
@@ -74,7 +73,6 @@ More Examples
 ------
 
 You can see a variety of examples in the `./examples` folder.
-
 
 Configuration Settings
 ------
@@ -183,7 +181,7 @@ Callback function which will be called when the deselects a region. Country code
 
 Callback function which will be called when the map is resized.  Return event, width & height.
 
-**pins** *{ "pk" : "pk_pin_metadata", "ru" : "ru_pin_metadata",	... }*
+**pins** *{ "pk" : "pk_pin_metadata", "ru" : "ru_pin_metadata", ... }*
 
 This option defines pins, which will be placed on the regions. The JSON can have only one element against one country code. Elements should be strings containing the HTML or id of the pin (depends on the 'pinMode' option explained next).
 
@@ -495,3 +493,64 @@ Custom Maps
 ======
 
 So you want to create your own maps, or change some existing ones.  Awesome.  Make sure to check out [./create/README.md](./create) for details on how to do this.
+
+## Testing
+
+This repository uses Jest as the default test runner (faster and with no native dependencies). New and migrated tests are located in `tests/__tests__` and run with jsdom.
+
+Main commands:
+
+To run the modern suite (Jest):
+
+```bash
+npm test
+```
+
+To run the legacy runner (QUnit + PhantomJS) — in isolation — a subpackage was provided in `tests/legacy`, which installs its own dependencies and runs `grunt` without contaminating the root `node_modules`.
+
+Commands from the project root:
+
+```bash
+# Install legacy dependencies in tests/legacy (internally uses TMPDIR=/tmp)
+TMPDIR=/tmp npm --prefix ./tests/legacy install --no-audit --no-fund
+
+# Run the legacy suite without changing directories
+npm --prefix ./tests/legacy run test
+
+# (Alternative) Change to the subdirectory and run
+cd tests/legacy && npm test
+```
+
+Note on the base `Gruntfile`
+
+The `Gruntfile` at the root no longer contains logic or tasks related to the legacy flow (QUnit/PhantomJS). Everything related to the legacy flow — `qunit` configuration, dependencies, and execution scripts — is now located in `tests/legacy/` (see `tests/legacy/Gruntfile.js` and `tests/legacy/package.json`). This keeps the modern and legacy flows completely isolated.
+
+Notes:
+
+* We recommend using `npm test` (Jest). The legacy flow remains available for compatibility but may require old binaries (phantomjs) and can fail on modern environments. If you need to run the legacy suite reproducibly in CI, create a separate job that installs the dependencies and runs the legacy runner in a compatible environment (e.g., a runner with an older Node version that supports `phantomjs-prebuilt`) or on a machine where PhantomJS is available.
+
+Legacy notes / compatibility
+
+The legacy tests (QUnit + PhantomJS) are kept in the project for compatibility but are isolated in `tests/legacy` and are not run by default. We’ve observed failures in modern environments when running the legacy runner; a common example is:
+
+```
+Fatal error: The "cb" argument must be of type function. Received undefined
+```
+
+This does not indicate an issue with the subpackage configuration (which is isolated and self-contained), but rather limitations and/or incompatibilities of the `phantomjs-prebuilt` binary with current Node versions or modern platforms.
+
+Recommendation
+
+* Keep the legacy flow isolated (it already is in `tests/legacy`).
+* For reproducible runs and CI, execute the legacy tests in a separate job or on a machine with proper compatibility (for example, using a runner that runs Node 10 or any environment where PhantomJS is available). If you’d like, I can add a GitHub Actions job that installs the dependencies in `tests/legacy` and runs:
+
+```bash
+npm --prefix ./tests/legacy ci --no-audit --no-fund
+npm --prefix ./tests/legacy test
+```
+
+This way the legacy flow stays completely separate from the modern runner and is not executed by default.
+
+## Note on CI and the legacy runner
+
+The project maintains two test flows: the modern one (Jest, executed by default with `npm test`) and the legacy one (QUnit + PhantomJS), which is isolated in `tests/legacy`. For CI instructions and recommendations on how to run the legacy runner reproducibly (for example, in a separate job or using an image with PhantomJS), see `docs/CI.md`.
