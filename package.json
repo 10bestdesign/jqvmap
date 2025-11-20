@@ -25,21 +25,26 @@
     "jquery": "~1.11.3"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci --runInBand",
+    "build": "grunt build"
   },
   "devDependencies": {
     "eslint": "^0.21.0",
     "grunt": "^0.4.5",
     "grunt-bump": "0.0.15",
     "grunt-changelog": "^0.2.2",
+    "grunt-cli": "^1.5.0",
     "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "*",
+    "grunt-contrib-concat": "^1.0.0",
     "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-qunit": "^0.7.0",
     "grunt-contrib-uglify": "^0.10.0",
     "grunt-gulp": "^0.1.0",
     "grunt-shell": "^1.1.1",
     "gruntfile-gtx": "^0.3.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "require-directory": "^2.0.0"
   }
 }

@@ -61,7 +61,7 @@ var JQVMap = function (params) {
   if (params.enableZoom) {
     jQuery('<div/>').addClass('jqvmap-zoomin').text('+').appendTo(params.container);
     jQuery('<div/>').addClass('jqvmap-zoomout').html('&#x2212;').appendTo(params.container);
-    
+
     this.makeDraggable();
   }
 

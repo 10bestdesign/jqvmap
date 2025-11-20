@@ -1,8 +1,7 @@
 module.exports = {
 	options: {
 		files: [
-			"package.json",
-			"bower.json"
+			"package.json"
 		],
 		updateConfigs: [
 			"package"

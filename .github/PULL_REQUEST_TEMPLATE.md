@@ -10,7 +10,7 @@ _type_response_here_
 
 _github_issue_numbers_this_addresses_
 
-#### This Pull Request includes:
+#### This Pull Request includes
 
 - [ ] Bug Fix with passing `npm test`
 - [ ] New Feature with passing `npm test`

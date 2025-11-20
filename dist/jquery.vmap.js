@@ -4,7 +4,7 @@
  * @version 1.5.1
  * @link http://jqvmap.com
  * @license https://github.com/manifestinteractive/jqvmap/blob/master/LICENSE
- * @builddate 2016/06/02
+ * @builddate 2025/11/20
  */
 
 var VectorCanvas = function (width, height, params) {
@@ -124,8 +124,6 @@ var JQVMap = function (params) {
   this.canvas = new VectorCanvas(this.width, this.height, params);
   params.container.append(this.canvas.canvas);
 
-  this.makeDraggable();
-
   this.rootGroup = this.canvas.createGroup(true);
 
   this.index = JQVMap.mapIndex;
@@ -134,6 +132,8 @@ var JQVMap = function (params) {
   if (params.enableZoom) {
     jQuery('<div/>').addClass('jqvmap-zoomin').text('+').appendTo(params.container);
     jQuery('<div/>').addClass('jqvmap-zoomout').html('&#x2212;').appendTo(params.container);
+
+    this.makeDraggable();
   }
 
   map.countries = [];
@@ -316,6 +316,7 @@ JQVMap.maps = {};
 (function(){
 
   var apiParams = {
+    color: 1,
     colors: 1,
     values: 1,
     backgroundColor: 1,
@@ -853,17 +854,13 @@ JQVMap.prototype.positionPins = function(){
     var scale = map.scale;
     var rootCoords = map.canvas.rootGroup.getBoundingClientRect();
     var mapCoords = map.container[0].getBoundingClientRect();
-    var coords = {
-      left: rootCoords.left - mapCoords.left,
-      top: rootCoords.top - mapCoords.top
-    };
 
     var middleX = (bbox.x * scale) + ((bbox.width * scale) / 2);
     var middleY = (bbox.y * scale) + ((bbox.height * scale) / 2);
 
     pinObj.css({
-      left: coords.left + middleX - (pinObj.width() / 2),
-      top: coords.top + middleY - (pinObj.height() / 2)
+      left: (rootCoords.left - mapCoords.left) + middleX - (pinObj.width() / 2),
+      top: (rootCoords.top - mapCoords.top) + middleY - (pinObj.height() / 2)
     });
   });
 };
@@ -885,7 +882,6 @@ JQVMap.prototype.reset = function () {
   this.transX = this.baseTransX;
   this.transY = this.baseTransY;
   this.applyTransform();
-  this.zoomCurStep = 1;
 };
 
 JQVMap.prototype.resize = function () {
@@ -933,6 +929,13 @@ JQVMap.prototype.selectIndex = function (cc) {
 
 JQVMap.prototype.setBackgroundColor = function (backgroundColor) {
   this.container.css('background-color', backgroundColor);
+};
+
+JQVMap.prototype.setColor = function (color) {
+  for (var code in this.countries) {
+    this.countries[code].setFill(color);
+    this.countries[code].setAttribute('original', color);
+  }
 };
 
 JQVMap.prototype.setColors = function (key, color) {
